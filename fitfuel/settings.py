@@ -16,6 +16,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'food',
+    'users',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -110,3 +111,10 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Setting the custom user model
+AUTH_USER_MODEL = 'users.CustomUser'
+
+# Redirect URL's
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
