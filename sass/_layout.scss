@@ -1,0 +1,47 @@
+// HEADER
+.header {
+    font-size: 1.8rem;
+    height: 8rem;
+    border-bottom: var(--line);
+
+    color: var(--color-grey-light-1);
+    background-image: linear-gradient(to right bottom, var(--color-primary-light), var(--color-primary-dark));
+    background-size: cover;
+    background-repeat: no-repeat;
+    
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 15rem;
+}
+
+.header-brand {
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    
+
+    &__logo {
+        height: 6rem; 
+    }
+
+    &__name {
+        text-transform: uppercase;
+        font-size: 2.2rem;
+        padding-left: 2rem;
+    }
+}
+
+.user-nav {
+
+    display: flex;
+    align-content: center;
+    gap: 2.5rem;
+
+    &__link {
+        text-decoration: none;
+        text-transform: uppercase;
+
+    }
+}
