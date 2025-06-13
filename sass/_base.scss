@@ -2,18 +2,25 @@
     --font-primary: 'Poppins', sans-serif;
     --font-secondary: 'Open Sans', sans-serif;
 
-    --color-primary: #4CAF50;
-    --color-primary-light: #8BC34A;
-    --color-primary-dark: #388E3C;
+    --color-primary: rgb(76, 175, 80);
+    --color-primary-light: #8bc34b;
+    --color-primary-dark: #388e3c;
 
-    --color-grey-light-1: #F8F8F8;
-    --color-grey-light-2: #EEE;
+    --color-grey-light-1: #faf9f9;
+    --color-grey-light-2: #f4f2f2;
+    --color-grey-light-3: #f0eeee;
+    --color-grey-light-4: #ccc;
 
-    --color-grey-dark-1: #424242;
+    --color-grey-dark-1: #333;
+    --color-grey-dark-2: #777;
+    --color-grey-dark-3: #999;
 
-    --line: 2px solid var(--color-grey-light-2);
+    --line: 1px solid var(--color-grey-light-2);
 
-    --shadow-dark: 0 2rem 6rem rgba(0, 0, 0, .3);
+    --shadow-dark-small: 0 1rem 3rem rgba(0, 0, 0, .3);
+    --shadow-dark: 0 2rem 4rem rgba(0, 0, 0, .3);
+    --shadow-dark-large: 0 1rem 6rem rgba(0, 0, 0, .3);
+    
     --shadow-light: 0 2rem 5rem rgba(0, 0, 0, .06);
 }
 
@@ -33,6 +40,7 @@ $bp-smallest: 31.25em; // 500px
 }
 
 html {
+    height: 100%;
     box-sizing: border-box;
     font-size: 62.5%; // 1REM = 10px
 }

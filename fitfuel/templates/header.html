@@ -1,16 +1,24 @@
 {% extends 'base.html ' %}
+{% load static %}
 {% block content %}
 <header class="header">
 
     <div class="header-brand">
-        <img class="header-brand__logo" src="https://cdn1.iconfinder.com/data/icons/dompicon-glyph-fitness-diet/256/vegetable-food-healthy-fitness-diet-512.png" alt="Logo Image" class="logo">
+        <img class="header-brand__logo" src="{% static 'img/logo.png' %}">
         <div class="header-brand__name">Fit-Fuel</div>
     </div>
     <div class="user-nav">
-        <a class="user-nav__link" href="#">Menu</a>
-        <a class="user-nav__link" href="#">Discounts</a>
-        <a class="user-nav__link" href="#">Contact</a>
-        <a class="user-nav__link" href="#">Account</a>
+        <a class="user-nav__button" href="#">Menu</a>
+        <a class="user-nav__button" href="#">Discounts</a>
+        <a class="user-nav__button" href="#">Contact</a>
+    </div>
+    <div class="icon-container">
+        <a class="icon-container__icon" href="#">
+            <i class="fi fi-rs-shopping-cart-add"></i>
+        </a>
+        <a class="icon-container__icon" href="#">
+            <i class="fi fi-rs-user"></i>
+        </a>
     </div>
 </header>
 {% endblock %}
