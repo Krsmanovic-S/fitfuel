@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block title %}FitFuel{% endblock %}
 {% block content %}
 {% include 'header.html' %}
@@ -16,50 +17,95 @@
             <div class="benefits__showcase-item">
                 <i class="fi fi-rr-leaf-heart"></i>
                 <div class="benefits__showcase-item-content">
-                    <h3 class="benefits__showcase-item__heading">Fresh Ingredients</h3>
-                    <p class="benefits__showcase-item-text__content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed orci lorem, placerat at euismod eu, molestie in nisi. Curabitur tincidunt dapibus pretium.</p>
+                    <h3>Fresh Ingredients</h3>
+                    <p">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed orci lorem, placerat at euismod eu, molestie in nisi. Curabitur tincidunt dapibus pretium.</p>
                 </div>
             </div>
 
             <div class="benefits__showcase-item">
                 <i class="fi fi-rr-clock-time-tracking"></i>
                 <div class="benefits__showcase-item-content">
-                    <h3 class="benefits__showcase-item__heading">Calorie Tracking</h3>
-                    <p class="benefits__showcase-item-text__content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed orci lorem, placerat at euismod eu, molestie in nisi. Curabitur tincidunt dapibus pretium.</p>
+                    <h3 >Calorie Tracking</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed orci lorem, placerat at euismod eu, molestie in nisi. Curabitur tincidunt dapibus pretium.</p>
                 </div>
             </div>
 
             <div class="benefits__showcase-item">
                 <i class="fi fi-rs-users-loyalty"></i>
                 <div class="benefits__showcase-item-content">
-                    <h3 class="benefits__showcase-item__heading">Loyalty Benefits</h3>
-                    <p class="benefits__showcase-item-text__content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed orci lorem, placerat at euismod eu, molestie in nisi. Curabitur tincidunt dapibus pretium.</p>
+                    <h3>Loyalty Benefits</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed orci lorem, placerat at euismod eu, molestie in nisi. Curabitur tincidunt dapibus pretium.</p>
                 </div>
             </div>
 
             <div class="benefits__showcase-item">
                 <i class="fi fi-rr-shipping-fast"></i>
                 <div class="benefits__showcase-item-content">
-                    <h3 class="benefits__showcase-item__heading">Fast Delivery</h3>
-                    <p class="benefits__showcase-item-text__content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed orci lorem, placerat at euismod eu, molestie in nisi. Curabitur tincidunt dapibus pretium.</p>
+                    <h3>Fast Delivery</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed orci lorem, placerat at euismod eu, molestie in nisi. Curabitur tincidunt dapibus pretium.</p>
                 </div>
             </div>
 
             <div class="benefits__showcase-item">
                 <i class="fi fi-rr-discount"></i>
                 <div class="benefits__showcase-item-content">
-                    <h3 class="benefits__showcase-item__heading">Frequent Discounts</h3>
-                    <p class="benefits__showcase-item-text__content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed orci lorem, placerat at euismod eu, molestie in nisi. Curabitur tincidunt dapibus pretium.</p>
+                    <h3>Frequent Discounts</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed orci lorem, placerat at euismod eu, molestie in nisi. Curabitur tincidunt dapibus pretium.</p>
                 </div>
             </div>
 
             <div class="benefits__showcase-item">
                 <i class="fi fi-rs-calendar-lines-pen"></i>
                 <div class="benefits__showcase-item-content">
-                    <h3 class="benefits__showcase-item__heading">Monthly Plans</h3>
-                    <p class="benefits__showcase-item-text__content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed orci lorem, placerat at euismod eu, molestie in nisi. Curabitur tincidunt dapibus pretium.</p>
+                    <h3 >Monthly Plans</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed orci lorem, placerat at euismod eu, molestie in nisi. Curabitur tincidunt dapibus pretium.</p>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div class="how-it-works">
+        <div class="how-it-works__title">Your Journey to Healthy Eating</div>
+        <div class="how-it-works__container">
+            <div class="how-it-works__container-steps">
+                <span class="how-it-works__container-steps__number">1</span>
+
+                <div class="how-it-works__container-steps__card">
+                    <div class="how-it-works__container-steps__card__title">
+
+                        <img src="{% static 'img/place_order.jpg' %}" alt="">
+                        <h3>Place Order</h3>
+                    </div>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed orci lorem, placerat at euismod eu, molestie in nisi. Curabitur tincidunt dapibus pretium.</p>
+                </div>
+            </div>
+
+            <div class="how-it-works__container-steps">
+                <span class="how-it-works__container-steps__number">2</span>
+
+                <div class="how-it-works__container-steps__card">
+                    <div class="how-it-works__container-steps__card__title">
+
+                        <img src="{% static 'img/await_delivery.jpg' %}" alt="">
+                        <h3>Await Delivery</h3>
+                    </div>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed orci lorem, placerat at euismod eu, molestie in nisi. Curabitur tincidunt dapibus pretium.</p>
+                </div>
+            </div>
+
+            <div class="how-it-works__container-steps">
+                <span class="how-it-works__container-steps__number">3</span>
+
+                <div class="how-it-works__container-steps__card">
+                    <div class="how-it-works__container-steps__card__title">
+
+                        <img src="{% static 'img/enjoy_meal.jpg' %}" alt="">
+                        <h3>Enjoy Meal</h3>
+                    </div>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed orci lorem, placerat at euismod eu, molestie in nisi. Curabitur tincidunt dapibus pretium.</p>
+                </div>
+            </div>
+            
         </div>
     </div>
 </main>
