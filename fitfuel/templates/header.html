@@ -4,19 +4,19 @@
 <header class="header">
 
     <div class="header-brand">
-        <img class="header-brand__logo" src="{% static 'img/logo.png' %}">
+        <img class="logo-img" src="{% static 'img/logo.png' %}" alt="Fit Fuel Logo">
         <div class="header-brand__name">Fit-Fuel</div>
     </div>
     <div class="user-nav">
-        <a class="user-nav__button" href="#">Menu</a>
+        <a class="user-nav__button" href="{% url 'menu' %}">Menu</a>
         <a class="user-nav__button" href="#">Discounts</a>
         <a class="user-nav__button" href="#">Contact</a>
     </div>
     <div class="icon-container">
-        <a class="icon-container__icon" href="#">
+        <a class="icon-link" href="#">
             <i class="fi fi-rs-shopping-cart-add"></i>
         </a>
-        <a class="icon-container__icon" href="#">
+        <a class="icon-link" href="#">
             <i class="fi fi-rs-user"></i>
         </a>
     </div>

@@ -11,7 +11,7 @@ class MenuItemCategoryAdmin(admin.ModelAdmin):
 class MenuItemPortionInline(admin.TabularInline):
     model = MenuItemPortion
     extra = 1
-    fields = ('name', 'amount_in_grams_ml', 'price', 'is_liquid')
+    fields = ('name', 'amount_in_grams_ml', 'price')
     
     
 @admin.register(MenuItem)

@@ -1,7 +1,6 @@
 // HEADER
-.header {
+.header, .footer {
     height: 10vh;
-    border-bottom: var(--line);
 
     background-image: linear-gradient(to right bottom, var(--color-primary-light), var(--color-primary-dark));
     background-size: cover;
@@ -12,3 +11,27 @@
     align-items: center;
 }
 
+.header {
+    border-bottom: var(--line);
+}
+
+.footer {
+    border-top: var(--line);
+}
+
+.menu-container {
+    padding: 5rem;
+
+    background-image: linear-gradient(to right bottom, var(--color-grey-light-1), var(--color-grey-light-2));
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.menu-item-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto;
+    justify-items: center;
+    row-gap: 5rem;
+    margin: 3rem 0;
+}

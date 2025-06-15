@@ -1,14 +1,17 @@
 from django.db import models
+from django.core.validators import MinValueValidator
 
 
 # Represents a category for menu items (Main Course, Drinks etc...)
 class MenuItemCategory(models.Model):
     name = models.CharField(max_length=100, unique=True, help_text='Category of a specific Menu Item')
-
+    index = models.IntegerField(default=0, help_text='Which category shows up first')
+    image_url = models.URLField(max_length=500, blank=True, null=True, help_text="URL of the image for this category")
+    
     class Meta:
         verbose_name = 'Menu Item Category'
         verbose_name_plural = 'Menu Item Categories'
-        ordering = ['name']
+        ordering = ['index']
 
     def __str__(self):
         return self.name
@@ -38,11 +41,11 @@ class MenuItem(models.Model):
 
 # Represents a specific portion size for a MenuItem, with its own price and amount.
 class MenuItemPortion(models.Model):
-    menu_item = models.ForeignKey(MenuItem, on_delete=models.CASCADE, help_text="The menu item this portion belongs to")
+    menu_item = models.ForeignKey(MenuItem, related_name='portions', on_delete=models.CASCADE, help_text="The menu item this portion belongs to")
     name = models.CharField(max_length=100, help_text="Name of the portion ('Small', 'Regular', etc...)")
     amount_in_grams_ml = models.IntegerField(default=100, help_text="Amount for this portion in grams or milliliters")
-    price = models.FloatField()
-    is_liquid = models.BooleanField(default=False)
+    price = models.FloatField(default=10, validators=[MinValueValidator(0.0, message='Price cannot be negative.')])
+    discount_percent = models.FloatField(default=0, validators=[MinValueValidator(0.0, message='Discount cannot be negative.')])
 
     class Meta:
         verbose_name = "Menu Item Portion"
@@ -52,3 +55,18 @@ class MenuItemPortion(models.Model):
 
     def __str__(self):
         return f"{self.menu_item.name} - {self.name} ({self.amount_in_grams_ml}g/ml) - ${self.price}"
+    
+    def calculate_macros_for_portion(self):
+        scale_factor = self.amount_in_grams_ml // 100
+
+        portion_calories = self.menu_item.calories * scale_factor
+        portion_protein = self.menu_item.protein * scale_factor
+        portion_carbs = self.menu_item.carbs * scale_factor
+        portion_fats = self.menu_item.fats * scale_factor
+
+        return {
+            'calories': portion_calories,
+            'protein': portion_protein,
+            'carbs': portion_carbs,
+            'fats': portion_fats
+        }

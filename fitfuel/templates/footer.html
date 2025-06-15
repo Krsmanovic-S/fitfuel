@@ -1,0 +1,22 @@
+{% extends 'base.html ' %}
+{% load static %}
+{% block content %}
+<footer class="footer">
+
+    <p class="copyright-text">© 2025 Stefan Krsmanović</p>
+
+    <img class="logo-img" src="{% static 'img/logo.png' %}" alt="Fit Fuel Logo">
+
+    <div class="icon-container">
+        <a href="https://www.linkedin.com/in/stefan-krsmanovic-7698a4235/" class="icon-link">
+            <i class="fi fi-brands-linkedin"></i>
+        </a>
+        <a href="https://github.com/Krsmanovic-S" class="icon-link">
+            <i class="fi fi-brands-github"></i>
+        </a>
+        <a href="https://t.me/krsmanovics" class="icon-link">
+            <i class="fi fi-brands-telegram"></i>
+        </a>
+    </div>
+</footer>
+{% endblock %}

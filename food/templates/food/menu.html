@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}FitFuel - Menu{% endblock %}
+{% block content %}
+{% include 'header.html' %}
+
+<div class="menu-container">
+    {% for category in menu_categories %}
+        <div class="category-container">
+            <div class="category-container__title">{{ category.name }}</div>
+
+            <div class="category-container__decal">
+                <div class="horizontal-lines">
+                    <hr class="line">
+                    <hr class="line">
+                </div>
+
+                <div class="category_badge">
+                    <img src="{% static 'categories/frame.png' %}" alt="Category Badge Frame" class="category_badge__frame">
+                    <img src="{{ category.image_url }}" alt="Category Icon" class="category_badge__category-icon">
+                </div>
+
+                <div class="horizontal-lines">
+                    <hr class="line">
+                    <hr class="line">
+                </div>
+            </div>
+        </div>
+
+        <div class="menu-item-grid">
+            {% for item in menu_items %}
+                {% if item.category.id == category.id %}
+                <div class="item-container">
+
+                    <div class="item-container__item-image">
+                        <img src="{{ item.image_url }}" alt="Food Item Image" class="item-image">
+                    </div>
+
+                    <div class="item-container__title">{{ item.name }}</div>
+
+                    <div class="item-container__macros">
+                        <div class="item-container__macros-carbs custom-pill">Carbs: 55</div>
+                        <div class="item-container__macros-protein custom-pill">Protein: 45</div>
+                        <div class="item-container__macros-fats custom-pill">Fats: 15</div>
+                        <div class="item-container__macros-calories custom-pill">Kcal: 380</div>
+                    </div>
+
+                    <div class="item-container__item-description">{{ item.description }}</div>
+
+                    <div class="item-container__portion-container">
+                        {% for portion in item.portions.all %}
+                            <div class="portion-option">
+                                <input type="radio" id="portion-{{ portion.id }}" name="selected_portion" value="{{ portion.id }}" {% if forloop.first %}checked{% endif %}>
+                                <label for="portion-{{ portion.id }}">
+                                    <span class="portion-option__name">{{ portion.name }}</span>
+                                    <span class="portion-option__price">€{{ portion.price }}</span>
+                                </label>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="item-container__cart-button">
+                        <a href="#">Add to Cart</a>
+                    </div>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endfor %}
+</div>
+
+{% include 'footer.html' %}
+{% endblock %}
