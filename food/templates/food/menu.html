@@ -39,25 +39,30 @@
                     <div class="item-container__title">{{ item.name }}</div>
 
                     <div class="item-container__macros">
-                        <div class="item-container__macros-carbs custom-pill">Carbs: 55</div>
-                        <div class="item-container__macros-protein custom-pill">Protein: 45</div>
-                        <div class="item-container__macros-fats custom-pill">Fats: 15</div>
-                        <div class="item-container__macros-calories custom-pill">Kcal: 380</div>
+                        <div class="item-container__macros-carbs custom-pill" data-type="carbs">Carbs: 35g</div>
+                        <div class="item-container__macros-protein custom-pill" data-type="protein">Protein: 20g</div>
+                        <div class="item-container__macros-fats custom-pill" data-type="fats">Fats: 15g</div>
+                        <div class="item-container__macros-calories custom-pill" data-type="calories">Kcal: 380</div>
                     </div>
 
                     <div class="item-container__item-description">{{ item.description }}</div>
 
-                    <div class="item-container__portion-container">
+                    <form class="item-container__portion-container">
                         {% for portion in item.portions.all %}
-                            <div class="portion-option">
-                                <input type="radio" id="portion-{{ portion.id }}" name="selected_portion" value="{{ portion.id }}" {% if forloop.first %}checked{% endif %}>
+                            {% with calculated_macros=portion.calculate_macros_for_portion %}
+                            <div class="item-container__portion-container-option">
+                                <input type="radio" id="portion-{{ portion.id }}" name="selected_portion" 
+                                       value="{{ portion.id }}" {% if forloop.first %}checked{% endif %}
+                                       data-carbs="{{ calculated_macros.carbs }}" data-proteins="{{ calculated_macros.protein }}"
+                                       data-fats="{{ calculated_macros.fats }}" data-calories="{{ calculated_macros.calories }}">
                                 <label for="portion-{{ portion.id }}">
-                                    <span class="portion-option__name">{{ portion.name }}</span>
-                                    <span class="portion-option__price">€{{ portion.price }}</span>
+                                    <span class="item-container__portion-container-option__name">{{ portion.name }}</span>
+                                    <span class="item-container__portion-container-option__price">{{ portion.price }}€</span>
                                 </label>
                             </div>
+                            {% endwith %}
                         {% endfor %}
-                    </div>
+                    </form>
 
                     <div class="item-container__cart-button">
                         <a href="#">Add to Cart</a>
@@ -70,4 +75,50 @@
 </div>
 
 {% include 'footer.html' %}
+
+<script>
+
+document.addEventListener('DOMContentLoaded', function() {
+    const portionRadioButtons = document.getElementsByName('selected_portion'); 
+
+    function updateItemMacros(selectedRadio) {
+        const itemContainer = selectedRadio.closest('.item-container');
+
+        // This gets the elements in the item-container__macros div
+        const macrosDisplayElements = {
+            carbs: itemContainer.querySelector('[data-type="carbs"]'),
+            proteins: itemContainer.querySelector('[data-type="protein"]'),
+            fats: itemContainer.querySelector('[data-type="fats"]'),
+            calories: itemContainer.querySelector('[data-type="calories"]')
+        };
+
+        // Get the portion data from the radio button
+        const carbs = selectedRadio.dataset.carbs || '0';
+        const proteins = selectedRadio.dataset.proteins || '0';
+        const fats = selectedRadio.dataset.fats || '0';
+        const calories = selectedRadio.dataset.calories || '0';
+
+        // Update the text
+        macrosDisplayElements.carbs.textContent = "Carbs: " + carbs + "g";
+        macrosDisplayElements.proteins.textContent = "Protein: " + proteins + "g";
+        macrosDisplayElements.fats.textContent = "Fats: " + fats + "g";
+        macrosDisplayElements.calories.textContent = "Kcal: " + calories;
+    }
+
+    Array.from(portionRadioButtons).forEach(radio => {
+        radio.addEventListener('change', function() {
+            updateItemMacros(this);
+        });
+    });
+
+    const allInitiallyCheckedRadios = document.querySelectorAll('input[type="radio"]:checked');
+    allInitiallyCheckedRadios.forEach(radio => {
+        updateItemMacros(radio);
+    });
+});
+
+</script>
+
+
 {% endblock %}
+

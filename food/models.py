@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import MinValueValidator
+import math 
 
 
 # Represents a category for menu items (Main Course, Drinks etc...)
@@ -57,12 +58,12 @@ class MenuItemPortion(models.Model):
         return f"{self.menu_item.name} - {self.name} ({self.amount_in_grams_ml}g/ml) - ${self.price}"
     
     def calculate_macros_for_portion(self):
-        scale_factor = self.amount_in_grams_ml // 100
+        scale_factor = self.amount_in_grams_ml / 100
 
-        portion_calories = self.menu_item.calories * scale_factor
-        portion_protein = self.menu_item.protein * scale_factor
-        portion_carbs = self.menu_item.carbs * scale_factor
-        portion_fats = self.menu_item.fats * scale_factor
+        portion_calories = math.ceil(self.menu_item.calories * scale_factor)
+        portion_protein = math.ceil(self.menu_item.protein * scale_factor)
+        portion_carbs = math.ceil(self.menu_item.carbs * scale_factor)
+        portion_fats = math.ceil(self.menu_item.fats * scale_factor)
 
         return {
             'calories': portion_calories,
