@@ -65,7 +65,7 @@
                     </form>
 
                     <div class="item-container__cart-button">
-                        <a href="#">Add to Cart</a>
+                        <a id="{{ item.id }}" href="#" data-image="{{ item.image_url }}" data-name="{{ item.name }}">Add to Cart</a>
                     </div>
                 </div>
                 {% endif %}
@@ -76,49 +76,147 @@
 
 {% include 'footer.html' %}
 
-<script>
+<script type="text/javascript">
 
-document.addEventListener('DOMContentLoaded', function() {
-    const portionRadioButtons = document.getElementsByName('selected_portion'); 
+let cart = {}; 
+let cartPopoverInstance; 
+let cartNumber;
 
-    function updateItemMacros(selectedRadio) {
-        const itemContainer = selectedRadio.closest('.item-container');
+// Update all Macros based on selected Portion
+function updateItemMacros(selectedRadio) {
+    const itemContainer = selectedRadio.closest('.item-container');
+    const macrosDisplayElements = {
+        carbs: itemContainer.querySelector('[data-type="carbs"]'),
+        proteins: itemContainer.querySelector('[data-type="protein"]'),
+        fats: itemContainer.querySelector('[data-type="fats"]'),
+        calories: itemContainer.querySelector('[data-type="calories"]')
+    };
+    const carbs = selectedRadio.dataset.carbs || '0';
+    const proteins = selectedRadio.dataset.proteins || '0';
+    const fats = selectedRadio.dataset.fats || '0';
+    const calories = selectedRadio.dataset.calories || '0';
 
-        // This gets the elements in the item-container__macros div
-        const macrosDisplayElements = {
-            carbs: itemContainer.querySelector('[data-type="carbs"]'),
-            proteins: itemContainer.querySelector('[data-type="protein"]'),
-            fats: itemContainer.querySelector('[data-type="fats"]'),
-            calories: itemContainer.querySelector('[data-type="calories"]')
-        };
+    macrosDisplayElements.carbs.textContent = "Carbs: " + carbs + "g";
+    macrosDisplayElements.proteins.textContent = "Protein: " + proteins + "g";
+    macrosDisplayElements.fats.textContent = "Fats: " + fats + "g";
+    macrosDisplayElements.calories.textContent = "Kcal: " + calories;
+}
 
-        // Get the portion data from the radio button
-        const carbs = selectedRadio.dataset.carbs || '0';
-        const proteins = selectedRadio.dataset.proteins || '0';
-        const fats = selectedRadio.dataset.fats || '0';
-        const calories = selectedRadio.dataset.calories || '0';
+// Updating Cart Display
+function updateCartDisplay() {
+    let cartString = '';
+    let currentCartState = JSON.parse(localStorage.getItem('cart'));
 
-        // Update the text
-        macrosDisplayElements.carbs.textContent = "Carbs: " + carbs + "g";
-        macrosDisplayElements.proteins.textContent = "Protein: " + proteins + "g";
-        macrosDisplayElements.fats.textContent = "Fats: " + fats + "g";
-        macrosDisplayElements.calories.textContent = "Kcal: " + calories;
+    if (!currentCartState) { currentCartState = {}; }
+
+    let totalUniqueItems = 0;
+    let totalQuantity = 0;
+
+    for (const itemID in currentCartState) { 
+        const cartEntry = currentCartState[itemID];
+        const itemDetails = cartEntry[0]; 
+        const quantity = cartEntry[1];     
+
+        totalQuantity += quantity; 
+
+        displayName = itemDetails.name;
+        if (displayName.length > 20) {
+            displayName = displayName.substring(0, 20) + '...';
+        }
+
+        cartString += 
+        `
+            <div class="item-layout">
+                <img class="item-layout__image" src="${itemDetails.image}" alt="Cart Entry Image" class="cart-container__image">
+                <div class="item-layout__info">
+                    <p class="item-layout__info-name">${displayName}</p>
+                    <div class="item-layout__info-amount">
+                        <div class="item-layout__info-amount-quantity">
+                            <p class="item-layout__info-amount-quantity-value">x${quantity}</p>
+                            <a href="#" class="item-layout__info-amount-quantity-remove" data-item-id="${itemID}">-</a>
+                        </div>
+                        <p class="item-layout__info-amount-price">${itemDetails.price}€</p>
+                    </div>
+                </div>
+            </div>
+        `;
     }
 
+    console.log("Generated cartString for Popover:", cartString); 
+
+    cartPopoverInstance.setAttribute('data-bs-content', cartString);
+    cartNumber.innerHTML = totalQuantity;
+}
+
+// --- ADD TO CART FUNCTION ---
+function addToCart(buttonElement, event) {
+    event.preventDefault();
+
+    const anchorTag = buttonElement.querySelector('a');
+    const itemID = anchorTag.id.toString();
+
+    if(cart[itemID] === undefined) {
+        const itemContainer = buttonElement.closest('.item-container');
+        let finalPrice = 0;
+
+        const selectedPortionRadio = itemContainer.querySelector('input[name="selected_portion"]:checked');
+        if (selectedPortionRadio) {
+            const priceSpan = selectedPortionRadio.nextElementSibling.querySelector('.item-container__portion-container-option__price');
+    
+            finalPrice = parseFloat(priceSpan.textContent.replace('€', '').trim());
+        } 
+
+        const itemProperties = {
+            'image': anchorTag.dataset.image,
+            'name': anchorTag.dataset.name,
+            'price': finalPrice
+        };
+        
+        cart[itemID] = [itemProperties, 1];
+    }
+    // Otherwise increment the amount by 1
+    else {
+        cart[itemID][1] += 1;
+    }
+
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartDisplay();
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    try {
+        cart = JSON.parse(localStorage.getItem('cart')) || {}; 
+    } catch (e) {
+        console.error("Error parsing cart from localStorage:", e);
+        cart = {};
+    }
+
+    cartPopoverInstance = document.getElementById('cart')
+    cartNumber = document.getElementById('cart-number');
+
+    // Binding Portion Radios for Macros
+    const portionRadioButtons = document.getElementsByName('selected_portion');
     Array.from(portionRadioButtons).forEach(radio => {
-        radio.addEventListener('change', function() {
-            updateItemMacros(this);
-        });
+        radio.addEventListener('change', function() { updateItemMacros(this); });
     });
 
     const allInitiallyCheckedRadios = document.querySelectorAll('input[type="radio"]:checked');
     allInitiallyCheckedRadios.forEach(radio => {
-        updateItemMacros(radio);
+        radio.addEventListener('change', function() { updateItemMacros(this); });
+        updateItemMacros(radio); 
     });
+
+    // Binding Add-to-Cart Buttons
+    const cartButtons = document.querySelectorAll('.item-container__cart-button');
+    cartButtons.forEach(buttonElement => {
+        buttonElement.addEventListener('click', function(event) { addToCart(this, event); });
+    });
+
+    // Initial Cart Display
+    updateCartDisplay();
 });
 
 </script>
-
 
 {% endblock %}
 

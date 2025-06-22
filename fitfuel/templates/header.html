@@ -1,8 +1,7 @@
 {% extends 'base.html ' %}
 {% load static %}
 {% block content %}
-<header class="header">
-
+<header class="header">    
     <div class="header-brand">
         <img class="logo-img" src="{% static 'img/logo.png' %}" alt="Fit Fuel Logo">
         <div class="header-brand__name">Fit-Fuel</div>
@@ -13,12 +12,13 @@
         <a class="user-nav__button" href="#">Contact</a>
     </div>
     <div class="icon-container">
-        <a class="icon-link" href="#">
+        <a class="icon-link" id="cart" href="#" data-bs-html="true" data-bs-custom-class="custom-popover" data-bs-toggle="popover" data-bs-placement="bottom" title="Cart" data-bs-content="Your cart is empty.">
             <i class="fi fi-rs-shopping-cart-add"></i>
         </a>
         <a class="icon-link" href="#">
             <i class="fi fi-rs-user"></i>
         </a>
+        <span id="cart-number" class="icon-container__cart">0</span>
     </div>
 </header>
 {% endblock %}
