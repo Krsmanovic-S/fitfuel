@@ -13,7 +13,7 @@ class RegisterForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('email', 'first_name', 'last_name', 'password', 'password_confirm' )
+        fields = ('email', 'first_name', 'last_name', 'password', 'password_confirm')
 
     # Validate if email already exists
     def clean_email(self):

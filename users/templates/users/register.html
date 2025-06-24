@@ -1,8 +1,39 @@
 {% extends 'base.html' %}
 {% block title %}FitFuel - Sign Up{% endblock %}
 {% block content %}
+{% include 'header.html' %}
 
-{{ form }}
-<button type="submit">Sign Up</button>
+<!--Register Form -->
+<div class="form-page">
+    <div class="form-container">
+        <h1 class="form-container__title">Register</h1>
+        <form method="POST" class="form-container__form">
+            {% csrf_token %}
+            <div class="form-container__form-section">
+                <label>Email</label>
+                <div class="form-container__form-section-field">{{ register_form.email }}</div> 
+            </div>
+            <div class="form-container__form-section">
+                <label>First Name</label>
+                <div class="form-container__form-section-field">{{ register_form.first_name }}</div> 
+            </div>
+            <div class="form-container__form-section">
+                <label>Last Name</label>
+                <div class="form-container__form-section-field">{{ register_form.last_name }}</div> 
+            </div>
+            <div class="form-container__form-section">
+                <label>Password</label>
+                <div class="form-container__form-section-field">{{ register_form.password }}</div> 
+            </div>
+            <div class="form-container__form-section">
+                <label>Confirm Password</label>
+                <div class="form-container__form-section-field">{{ register_form.password_confirm }}</div> 
+            </div>
 
+            <button class="nav-button" type="submit">Register</button>
+        </form>
+    </div>
+</div>
+    
+{% include 'footer.html' %}
 {% endblock %}

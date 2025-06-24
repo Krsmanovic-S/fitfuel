@@ -7,18 +7,214 @@
         <div class="header-brand__name">Fit-Fuel</div>
     </div>
     <div class="user-nav">
-        <a class="user-nav__button" href="{% url 'menu' %}">Menu</a>
-        <a class="user-nav__button" href="#">Discounts</a>
-        <a class="user-nav__button" href="#">Contact</a>
+        <a class="nav-button" href="{% url 'menu' %}">Menu</a>
+        <a class="nav-button" href="#">Discounts</a>
+        <a class="nav-button" href="#">Contact</a>
     </div>
     <div class="icon-container">
         <a class="icon-link" id="cart" href="#" data-bs-custom-class="custom-popover">
             <i class="fi fi-rs-shopping-cart-add"></i>
         </a>
-        <a class="icon-link" href="#">
-            <i class="fi fi-rs-user"></i>
-        </a>
+
+        <div class="dropdown">
+            <a class="icon-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fi fi-rs-user"></i>
+            </a>
+
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="{% url 'login' %}">Login</a></li>
+                <li><a class="dropdown-item" href="{% url 'register' %}">Register</a></li>
+                <li><a class="dropdown-item" href="#">Profile</a></li>
+            </ul>
+        </div>
+
         <span id="cart-number" class="icon-container__cart">0</span>
     </div>
 </header>
+
+
+<script type="text/javascript">
+
+let cart = {}; 
+let cartPopoverInstance; 
+let cartNumber;
+
+// Update all Macros based on selected Portion
+function updateItemMacros(selectedRadio) {
+    const itemContainer = selectedRadio.closest('.item-container');
+    const macrosDisplayElements = {
+        carbs: itemContainer.querySelector('[data-type="carbs"]'),
+        proteins: itemContainer.querySelector('[data-type="protein"]'),
+        fats: itemContainer.querySelector('[data-type="fats"]'),
+        calories: itemContainer.querySelector('[data-type="calories"]')
+    };
+    const carbs = selectedRadio.dataset.carbs || '0';
+    const proteins = selectedRadio.dataset.proteins || '0';
+    const fats = selectedRadio.dataset.fats || '0';
+    const calories = selectedRadio.dataset.calories || '0';
+
+    macrosDisplayElements.carbs.textContent = "Carbs: " + carbs + "g";
+    macrosDisplayElements.proteins.textContent = "Protein: " + proteins + "g";
+    macrosDisplayElements.fats.textContent = "Fats: " + fats + "g";
+    macrosDisplayElements.calories.textContent = "Kcal: " + calories;
+}
+
+// Updating Cart Display
+function updateCartDisplay() {
+    let currentCartState = JSON.parse(localStorage.getItem('cart'));
+    if (!currentCartState) return;
+
+    let cartString = '';
+    let totalUniqueItems = 0;
+    let totalQuantity = 0;
+
+    for (const itemID in currentCartState) { 
+        const cartEntry = currentCartState[itemID];
+        const itemDetails = cartEntry[0]; 
+        const quantity = cartEntry[1];     
+
+        totalQuantity += quantity; 
+
+        // Truncate the name so it can fit better
+        displayName = itemDetails.name;
+        if (displayName.length > 20) {
+            displayName = displayName.substring(0, 20) + '...';
+        }
+
+        cartString += 
+        `
+            <div class="item-layout">
+                <img class="item-layout__image" src="${itemDetails.image}" alt="Cart Entry Image">
+                <div class="item-layout__info">
+                    <p class="item-layout__info-name">${displayName}</p>
+                    <div class="item-layout__info-amount">
+                        <div class="item-layout__info-amount-quantity">
+                            <p class="item-layout__info-amount-quantity-value">x${quantity}</p>
+                            <a href="#" id="${itemID}" class="item-layout__info-amount-quantity-remove">-</a>
+                        </div>
+                        <p class="item-layout__info-amount-price">${itemDetails.price}€</p>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    cartString +=
+    `
+        <a class="nav-button" href="">Checkout</>
+    `;
+    
+    // Only use setContent if the popover isn't shown, this is to avoid shown popover flickering
+    const popoverElement = document.querySelector('.popover-body');
+    if (popoverElement) {
+        popoverElement.innerHTML = cartString;
+    } else {
+        cartPopoverInstance.setContent({
+            '.popover-header': 'Cart',
+            '.popover-body': cartString
+        });
+    }
+    
+    cartNumber.innerHTML = totalQuantity;
+}
+
+// --- ADD TO CART FUNCTION ---
+function addToCart(buttonElement, event) {
+    event.preventDefault();
+
+    const anchorTag = buttonElement.querySelector('a');
+    const itemID = anchorTag.id.toString();
+
+    if(cart[itemID] === undefined) {
+        const itemContainer = buttonElement.closest('.item-container');
+        let finalPrice = 0;
+
+        const selectedPortionRadio = itemContainer.querySelector('input[name="selected_portion"]:checked');
+        if (selectedPortionRadio) {
+            const priceSpan = selectedPortionRadio.nextElementSibling.querySelector('.item-container__portion-container-option__price');
+    
+            finalPrice = parseFloat(priceSpan.textContent.replace('€', '').trim());
+        } 
+
+        const itemProperties = {
+            'image': anchorTag.dataset.image,
+            'name': anchorTag.dataset.name,
+            'price': finalPrice
+        };
+        
+        cart[itemID] = [itemProperties, 1];
+    }
+    // Otherwise increment the amount by 1
+    else {
+        cart[itemID][1] += 1;
+    }
+
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartDisplay();
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    try {
+        cart = JSON.parse(localStorage.getItem('cart')) || {}; 
+    } catch (e) {
+        console.error("Error parsing cart from localStorage:", e);
+        cart = {};
+    }
+ 
+    const cartPopoverElement = document.getElementById('cart');
+    cartPopoverInstance = bootstrap.Popover.getInstance(cartPopoverElement);
+    if (!cartPopoverInstance) {
+        cartPopoverInstance = new bootstrap.Popover(cartPopoverElement, {
+            html: true,
+            content: 'Your cart is empty.',
+            trigger: 'click',  
+            placement: 'bottom'
+        });
+    }
+
+    cartNumber = document.getElementById('cart-number');
+
+    // Binding Portion Radios for Macros
+    const portionRadioButtons = document.getElementsByName('selected_portion');
+    Array.from(portionRadioButtons).forEach(radio => {
+        radio.addEventListener('change', function() { updateItemMacros(this); });
+    });
+
+    const allInitiallyCheckedRadios = document.querySelectorAll('input[type="radio"]:checked');
+    allInitiallyCheckedRadios.forEach(radio => {
+        radio.addEventListener('change', function() { updateItemMacros(this); });
+        updateItemMacros(radio); 
+    });
+
+    // Binding Add-to-Cart Buttons
+    const cartButtons = document.querySelectorAll('.item-container__cart-button');
+    cartButtons.forEach(buttonElement => {
+        buttonElement.addEventListener('click', function(event) { addToCart(this, event); });
+    });
+
+    // Initial Cart Display
+    updateCartDisplay();
+
+    document.body.addEventListener('click', function (event) {
+        const removeButton = event.target.closest('.item-layout__info-amount-quantity-remove');
+        if (!removeButton) return;
+
+        event.preventDefault();
+        const itemID = removeButton.id;
+
+        if (cart[itemID]) {
+            cart[itemID][1]--; 
+
+            if (cart[itemID][1] <= 0) {
+                delete cart[itemID];
+            }
+
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartDisplay(); 
+        }
+    });
+});
+
+</script>
+
 {% endblock %}

@@ -35,3 +35,27 @@
     row-gap: 5rem;
     margin: 3rem 0;
 }
+
+.form-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    height: 80vh;
+
+    &::before {
+        content: '';
+        position: absolute; /* Position relative to the .form-page container */
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+
+        background-image: url('../img/plant_decal.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+
+        z-index: -1;
+    }
+}

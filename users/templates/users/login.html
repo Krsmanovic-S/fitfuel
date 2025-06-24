@@ -1,8 +1,27 @@
 {% extends 'base.html' %}
 {% block title %}FitFuel - Log In{% endblock %}
 {% block content %}
+{% include 'header.html' %}
 
-{{ form }}
-<button type="submit">Log In</button>
+<!--Login Form -->
+<div class="form-page">
+    <div class="form-container">
+        <h1 class="form-container__title">Login</h1>
+        <form method="POST" class="form-container__form">
+            {% csrf_token %}
+            <div class="form-container__form-section">
+                <label>Email</label>
+                <div class="form-container__form-section-field">{{ login_form.email }}</div> 
+            </div>
+            <div class="form-container__form-section">
+                <label>Password</label>
+                <div class="form-container__form-section-field">{{ login_form.password }}</div> 
+            </div>
 
+            <button class="nav-button" type="submit">Login</button>
+        </form>
+    </div>
+</div>
+
+{% include 'footer.html' %}
 {% endblock %}

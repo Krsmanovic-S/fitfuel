@@ -82,6 +82,26 @@ body {
   margin: 3rem 0;
 }
 
+.form-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
+}
+.form-page::before {
+  content: "";
+  position: absolute; /* Position relative to the .form-page container */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("../img/plant_decal.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: -1;
+}
+
 .header-brand {
   display: flex;
   justify-content: space-between;
@@ -109,28 +129,6 @@ body {
   align-content: center;
   gap: 3rem;
   background-color: transparent;
-}
-.user-nav__button {
-  text-decoration: none;
-  text-transform: uppercase;
-  letter-spacing: 0.2rem;
-  font-weight: 600;
-  font-size: 2.2rem;
-  text-align: center;
-  width: 20rem;
-  border-radius: 100px;
-  padding: 0.5rem 3rem;
-  background-color: var(--color-grey-light-1);
-  color: var(--color-primary);
-  transition: all 0.1s ease;
-  box-shadow: var(--shadow-dark-small);
-  transform: scale(1);
-}
-.user-nav__button:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  color: #FFF;
-  transform: scale(1.05);
-  font-weight: 700;
 }
 
 .icon-container {
@@ -167,6 +165,29 @@ body {
   color: var(--color-grey-light-1);
 }
 
+.nav-button {
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.2rem;
+  font-weight: 600;
+  font-size: 2.2rem;
+  text-align: center;
+  width: 20rem;
+  border-radius: 100px;
+  padding: 0.5rem 3rem;
+  background-color: var(--color-grey-light-1);
+  color: var(--color-primary);
+  box-shadow: var(--shadow-dark-small);
+  transition: all 0.1s ease;
+  transform: scale(1);
+}
+.nav-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #FFF;
+  transform: scale(1.05);
+  font-weight: 700;
+}
+
 .main-button {
   text-transform: uppercase;
   text-decoration: none;
@@ -183,7 +204,7 @@ body {
   transform: translateY(0);
   opacity: 1;
   transition: all 0.1 ease;
-  animation: moveInBottom 0.5s ease-out 0.1s;
+  animation: moveInBottom 1.1s ease-out 0.1s;
 }
 .main-button:hover {
   background-color: rgba(76, 175, 80, 0.8);
@@ -204,6 +225,7 @@ body {
   justify-content: center;
   border-radius: 50%;
   background-color: var(--color-grey-light-1);
+  box-shadow: var(--shadow-dark-small);
   transition: all 0.1s ease;
 }
 .icon-link:hover {
@@ -254,6 +276,7 @@ body {
   color: var(--color-grey-light-2);
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 1.5rem;
   flex: 1;
 }
@@ -320,6 +343,7 @@ body {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  overflow: hidden;
 }
 .landing-image::before {
   content: "";
@@ -349,7 +373,7 @@ body {
   margin-bottom: 4rem;
   color: var(--color-grey-light-1);
   z-index: 2;
-  animation: moveInTop 0.7s ease-out 0.1s;
+  animation: moveInTop 1s ease-out 0.1s;
   animation-fill-mode: backwards;
 }
 
@@ -670,9 +694,78 @@ body {
   text-decoration: none;
   font-weight: 900;
   font-size: 1.5rem;
+  transition: all 0.1s ease;
+  transform: scale(1);
 }
 .item-container__cart-button a:hover {
   background-color: var(--color-primary-light);
+  transform: scale(1.1);
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 60rem;
+  max-width: 90%;
+  background-color: var(--color-grey-light-1);
+  border-radius: 1.2rem;
+  border: 1px solid var(--color-grey-light-2);
+  padding: 2.5rem;
+  border-radius: 1.2rem;
+  box-shadow: var(--shadow-dark-small);
+}
+.form-container__title {
+  font-size: 3rem;
+  letter-spacing: 0.2rem;
+  font-weight: 600;
+}
+.form-container__form {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.form-container__form-section {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+.form-container__form-section label {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+.form-container__form-section-field {
+  width: 100%;
+}
+.form-container__form-section-field input {
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 0.8rem;
+  color: #333;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.form-container__form-section-field input:focus {
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+  outline: none;
+}
+.form-container__form .nav-button {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1rem;
+  border: none;
+  color: var(--color-grey-light-1);
+  background-color: var(--color-primary-light);
+  transition: all 0.1s ease;
+  transform: scale(1);
+}
+.form-container__form .nav-button:hover {
+  background-color: var(--color-primary-dark);
+  transform: scale(1.1);
 }
 
 @keyframes moveInBottom {
