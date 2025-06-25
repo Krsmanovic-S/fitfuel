@@ -5,21 +5,37 @@
 {% include 'header.html' %}
 
 <div class="page-container">
-    <ul class="cart-list">
-        {% for item in cart_items %}
-        <div class="checkout-item-container">
-            <img src="{{ item.image_url }}" alt="" class="checkout-item-container__image">
-            <div class="checkout-item-container__info">
-                <div class="checkout-item-container__info-name">{{ item.menu_item_name }}</div>
-                <div class="checkout-item-container__info-portion">
-                    <div class="checkout-item-container__info-portion-size">{{ item.portion_name }}</div>
-                    <div class="checkout-item-container__info-portion-quantity">x{{ item.quantity }}</div>
+    <div class="order checkout-card">
+        <div class="cart-list">
+            {% for item in cart_items %}
+            <div class="cart-list__item">
+                <img src="{{ item.image_url }}" alt="" class="cart-list__item-image">
+                <div class="cart-list__item-info">
+                    <div class="cart-list__item-info-name">{{ item.menu_item_name }}</div>
+                    <div class="cart-list__item-info-portion">
+                        <div class="cart-list__item-info-portion-size">{{ item.portion_name }}</div>
+                        <div class="cart-list__item-info-portion-quantity">x{{ item.quantity }}</div>
+                    </div>
                 </div>
+                <div class="cart-list__price">{{ item.price_per_item }}€</div>
             </div>
-            <div class="checkout-item-container__price">{{ item.price_per_item }}€</div>
+            {% endfor %}
         </div>
-        {% endfor %}
-    </ul>
+
+        <div class="order__total">Total: {{ total_cart_price }}€</div>
+    </div>
+    <div class="checkout-info">
+        <div class="checkout-info__stripe-help checkout-card">
+            <div class="checkout-info__stripe-help-text">
+                Stripe payment testing can be done with the card number 
+            </div>
+            <div class="checkout-info__stripe-help-card">4242 4242 4242 4242</div>
+        </div>
+        <div class="checkout-info__button-container checkout-card">
+            <a class="main-button" href="#">Checkout</a>
+        </div>
+    </div>
+
 </div>
 
 
