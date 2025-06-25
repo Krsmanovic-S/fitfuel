@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Checkout{% endblock %}
+{% block content %}
+{% include 'header.html' %}
+
+<div class="page-container">
+    <ul class="cart-list">
+        {% for item in cart_items %}
+        <div class="checkout-item-container">
+            <img src="{{ item.image_url }}" alt="" class="checkout-item-container__image">
+            <div class="checkout-item-container__info">
+                <div class="checkout-item-container__info-name">{{ item.menu_item_name }}</div>
+                <div class="checkout-item-container__info-portion">
+                    <div class="checkout-item-container__info-portion-size">{{ item.portion_name }}</div>
+                    <div class="checkout-item-container__info-portion-quantity">x{{ item.quantity }}</div>
+                </div>
+            </div>
+            <div class="checkout-item-container__price">{{ item.price_per_item }}€</div>
+        </div>
+        {% endfor %}
+    </ul>
+</div>
+
+
+{% include 'footer.html' %}
+
+{% endblock %}

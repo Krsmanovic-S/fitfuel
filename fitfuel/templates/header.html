@@ -4,7 +4,7 @@
 <header class="header">    
     <div class="header-brand">
         <img class="logo-img" src="{% static 'img/logo.png' %}" alt="Fit Fuel Logo">
-        <div class="header-brand__name">Fit-Fuel</div>
+        <a href="{% url 'index' %}" class="header-brand__name">Fit-Fuel</a>
     </div>
     <div class="user-nav">
         <a class="nav-button" href="{% url 'menu' %}">Menu</a>
@@ -62,8 +62,14 @@ function updateItemMacros(selectedRadio) {
 // Updating Cart Display
 function updateCartDisplay() {
     let currentCartState = JSON.parse(localStorage.getItem('cart'));
-    if (!currentCartState) return;
-
+    if (!currentCartState) {
+        cartPopoverInstance.setContent({
+            '.popover-header': 'Cart',
+            '.popover-body': 'Your cart is empty.'
+        });
+        return;
+    }
+    
     let cartString = '';
     let totalUniqueItems = 0;
     let totalQuantity = 0;
@@ -87,12 +93,15 @@ function updateCartDisplay() {
                 <img class="item-layout__image" src="${itemDetails.image}" alt="Cart Entry Image">
                 <div class="item-layout__info">
                     <p class="item-layout__info-name">${displayName}</p>
-                    <div class="item-layout__info-amount">
-                        <div class="item-layout__info-amount-quantity">
-                            <p class="item-layout__info-amount-quantity-value">x${quantity}</p>
-                            <a href="#" id="${itemID}" class="item-layout__info-amount-quantity-remove">-</a>
+
+                    <div class="item-layout__info-type">
+                        <div class="item-layout__info-type-portion">${itemDetails.portion_name}</div>
+
+                        <div class="item-layout__info-type-actions">
+                            <p class="item-layout__info-type-actions-value">x${quantity}</p>
+                            <a href="#" id="${itemID}" class="item-layout__info-type-actions-remove">-</a>
+                            <p class="item-layout__info-type-actions-price">${itemDetails.price}€</p>
                         </div>
-                        <p class="item-layout__info-amount-price">${itemDetails.price}€</p>
                     </div>
                 </div>
             </div>
@@ -101,7 +110,7 @@ function updateCartDisplay() {
 
     cartString +=
     `
-        <a class="nav-button" href="">Checkout</>
+        <a id="checkout-button" class="nav-button" href="#">Checkout</>
     `;
     
     // Only use setContent if the popover isn't shown, this is to avoid shown popover flickering
@@ -118,39 +127,129 @@ function updateCartDisplay() {
     cartNumber.innerHTML = totalQuantity;
 }
 
-// --- ADD TO CART FUNCTION ---
+// Adding items to the Cart
 function addToCart(buttonElement, event) {
     event.preventDefault();
 
-    const anchorTag = buttonElement.querySelector('a');
-    const itemID = anchorTag.id.toString();
+    const itemContainer = buttonElement.closest('.item-container');
+    const selectedPortionRadio = itemContainer.querySelector('input[name="selected_portion"]:checked');
+    if (selectedPortionRadio) {
 
-    if(cart[itemID] === undefined) {
-        const itemContainer = buttonElement.closest('.item-container');
-        let finalPrice = 0;
+        const portionID = selectedPortionRadio.id.replace('portion-', '');
 
-        const selectedPortionRadio = itemContainer.querySelector('input[name="selected_portion"]:checked');
-        if (selectedPortionRadio) {
-            const priceSpan = selectedPortionRadio.nextElementSibling.querySelector('.item-container__portion-container-option__price');
+        const priceSpan = selectedPortionRadio.nextElementSibling.querySelector('.item-container__portion-container-option__price');
+        const finalPrice = parseFloat(priceSpan.textContent.replace('€', '').trim());
+
+        if(cart[portionID] === undefined) {
+            // Anchor tag stores all menu item information for frontend display
+            const anchorTag = buttonElement.querySelector('a');
+
+            const portionName = selectedPortionRadio.nextElementSibling.querySelector('.item-container__portion-container-option__name').textContent
+
+            const itemProperties = {
+                'image': anchorTag.dataset.image,
+                'name': anchorTag.dataset.name,
+                'price': finalPrice,
+                'portion_name': portionName
+            };
+
+            console.log(itemProperties.portion_name)
+            cart[portionID] = [itemProperties, 1];
+        }
+        else {
+            cart[portionID][1] += 1;
+        }
+
+        localStorage.setItem('cart', JSON.stringify(cart));
+        updateCartDisplay();
+    }    
+}
+
+async function proceedToCheckout(event) {
+    event.preventDefault();
+
+    console.log("JS DEBUG: 'proceedToCheckout' function entered.");
     
-            finalPrice = parseFloat(priceSpan.textContent.replace('€', '').trim());
-        } 
+    const currentLocalStorageCartRaw = localStorage.getItem('cart');
+    console.log("JS DEBUG: Raw localStorage 'cart' before processing:", currentLocalStorageCartRaw);
 
-        const itemProperties = {
-            'image': anchorTag.dataset.image,
-            'name': anchorTag.dataset.name,
-            'price': finalPrice
-        };
-        
-        cart[itemID] = [itemProperties, 1];
-    }
-    // Otherwise increment the amount by 1
-    else {
-        cart[itemID][1] += 1;
+    const cartJsonData = currentLocalStorageCartRaw;
+    const cartData = cartJsonData ? JSON.parse(cartJsonData) : {};
+
+    console.log("JS DEBUG: Parsed cartData from localStorage (to be sent to server):", cartData);
+
+    if (Object.keys(cartData).length === 0) {
+        console.warn("JS DEBUG: Cart data from localStorage is empty. Not sending empty cart to server.");
+        alert("Your cart is empty! Please add items before checking out.");
+        const checkoutButton = event.target.closest('#checkout-button');
+        if (checkoutButton) {
+            checkoutButton.disabled = false;
+            checkoutButton.textContent = 'Checkout';
+        }
+        return;
     }
 
-    localStorage.setItem('cart', JSON.stringify(cart));
-    updateCartDisplay();
+    const checkoutButton = event.target.closest('#checkout-button');
+    if (checkoutButton) {
+        checkoutButton.disabled = true;
+        checkoutButton.textContent = 'Processing...';
+    }
+
+    try {
+        // --- MODIFICATION START ---
+        // POST to the new update API endpoint
+        console.log("JS DEBUG: Attempting to send POST request to {% url 'update_session_cart' %}");
+        const response = await fetch('{% url "update_session_cart" %}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                // 'X-CSRFToken': csrftoken // Uncomment and ensure csrftoken is defined in production
+            },
+            body: JSON.stringify({ cart: cartData })
+        });
+        // --- MODIFICATION END ---
+
+        console.log("JS DEBUG: Received response from server. Status:", response.status);
+
+        const responseText = await response.text(); 
+        console.log("JS DEBUG: Raw response text from API:", responseText);
+
+        let responseData = {};
+        try {
+            responseData = JSON.parse(responseText);
+        } catch (jsonError) {
+            console.error("JS DEBUG: Failed to parse response from API as JSON:", jsonError);
+            console.error("JS DEBUG: Non-JSON response received from API. This could be an error page or a misconfigured server response.");
+            alert('Server returned an unexpected response from API. Please check console for details.');
+            throw new Error('Non-JSON response from server API.');
+        }
+
+        if (response.ok) {
+            console.log("JS DEBUG: Cart data sent and processed successfully by update API.");
+            console.log("JS DEBUG: Server response data from API:", responseData);
+            
+            // --- MODIFICATION START ---
+            // Redirect to the new GET-only checkout display page
+            window.location.href = '{% url "checkout_page" %}';
+            // --- MODIFICATION END ---
+
+        } else {
+            console.error("JS DEBUG: Server returned an error from API (response.ok is false). Status:", response.status);
+            console.error("JS DEBUG: Server message from API:", responseData.message || "No specific message.");
+            alert('Error updating cart on server: ' + (responseData.message || `Server responded with status ${response.status}.`));
+            if (checkoutButton) {
+                checkoutButton.disabled = false;
+                checkoutButton.textContent = 'Checkout';
+            }
+        }
+    } catch (error) {
+        console.error("JS DEBUG: Network or unexpected error during checkout process (API call):", error);
+        alert('An unexpected error occurred during cart sync. Please try again. Check browser console for more details.');
+        if (checkoutButton) {
+            checkoutButton.disabled = false;
+            checkoutButton.textContent = 'Checkout';
+        }
+    }
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -167,7 +266,7 @@ document.addEventListener('DOMContentLoaded', function() {
         cartPopoverInstance = new bootstrap.Popover(cartPopoverElement, {
             html: true,
             content: 'Your cart is empty.',
-            trigger: 'click',  
+            trigger: 'focus',  
             placement: 'bottom'
         });
     }
@@ -195,6 +294,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initial Cart Display
     updateCartDisplay();
 
+    // Binding event for Remove Buttons in the cart
     document.body.addEventListener('click', function (event) {
         const removeButton = event.target.closest('.item-layout__info-amount-quantity-remove');
         if (!removeButton) return;
@@ -213,6 +313,15 @@ document.addEventListener('DOMContentLoaded', function() {
             updateCartDisplay(); 
         }
     });
+
+    // Binding the Checkout Button
+    document.body.addEventListener('click', (event) => {
+        const checkoutButton = event.target.closest('#checkout-button');
+        if (checkoutButton) {
+            proceedToCheckout(event); 
+        }
+    });
+
 });
 
 </script>

@@ -39,7 +39,6 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     city = models.CharField(max_length=100, blank=True, null=True, verbose_name='City')
     zip_code = models.CharField(max_length=20, blank=True, null=True, verbose_name='Zip Code')
 
-
     is_active = models.BooleanField(default=True,
         help_text='Designates whether this user should be treated as active. '
                   'Unselect this instead of deleting accounts.'

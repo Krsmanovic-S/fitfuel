@@ -36,16 +36,18 @@
     margin: 3rem 0;
 }
 
-.form-page {
+.page-container {
     display: flex;
     align-items: center;
     justify-content: center;
     
     height: 80vh;
+}
 
+.form-page {
     &::before {
         content: '';
-        position: absolute; /* Position relative to the .form-page container */
+        position: absolute;
         top: 0;
         left: 0;
         width: 100%;
@@ -59,3 +61,4 @@
         z-index: -1;
     }
 }
+

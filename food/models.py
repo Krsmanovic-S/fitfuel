@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import MinValueValidator
+from users.models import CustomUser
 import math 
 
 
@@ -71,3 +72,39 @@ class MenuItemPortion(models.Model):
             'carbs': portion_carbs,
             'fats': portion_fats
         }
+        
+    def get_final_price(self):
+        if self.discount_percent and self.discount_percent > 0:
+            discount_amount = self.price * (self.discount_percent / 100)
+            return round(self.price - discount_amount, 2)
+        return round(self.price, 2)
+        
+        
+class Order(models.Model):
+    customer_email = models.EmailField()
+    total_price = models.FloatField(default=0.0)
+
+    order_date = models.DateTimeField(auto_now_add=True)    
+    has_paid = models.BooleanField(default=False)
+    is_shipped = models.BooleanField(default=False)
+    
+    def __str__(self):
+        return f"Order #{self.id} by {self.customer_email}"
+
+    def calculate_total_price(self):
+        total = sum(item.price_at_order * item.quantity for item in self.orderitem_set.all())
+        self.total_price = total
+        self.save()
+
+
+class OrderItem(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    menu_item_portion = models.ForeignKey(MenuItemPortion, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+    price_at_order = models.FloatField(default=0.0)
+
+    def __str__(self):
+        return f"{self.menu_item_portion.menu_item.name} ({self.menu_item_portion.name}) - x{self.quantity} in Order #{self.order.id}"
+
+    class Meta:
+        unique_together = ('order', 'menu_item_portion')

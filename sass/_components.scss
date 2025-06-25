@@ -8,6 +8,7 @@
     gap: 2rem;
 
     &__name {
+        text-decoration: none;
         text-transform: uppercase;
         font-size: 4rem;
         letter-spacing: .7rem;
@@ -15,6 +16,11 @@
         font-style: italic;
         color: var(--color-grey-light-1);
         text-shadow: .5rem .5rem .5rem rgba(0, 0, 0, 0.5);
+
+        &:hover {
+            color: var(--color-grey-light-2);
+            cursor: pointer;
+        }
     }
 }
 
@@ -54,6 +60,15 @@
         align-items: center;
         min-width: 3rem; 
         aspect-ratio: 1 / 1
+    }
+}
+
+.dropdown-menu  {
+    font-family: var(--font-secondary);
+    font-size: 1.5rem;
+
+    .dropdown-item {
+        padding: 1rem 2rem;
     }
 }
 
@@ -161,6 +176,7 @@
     }
 }
 
+// CART POPOVER
 .custom-popover {
     display: flex;
     flex-direction: column;
@@ -232,17 +248,20 @@
                     text-align: start;
                 }
 
-                &-amount {
+                &-type {
                     display: flex;
                     justify-content: space-between;
 
                     flex: 1;
                     font-size: 1.5rem;
 
-                    &-quantity {
+                    &-portion {
+                        font-weight: 600;
+                    }
+
+                    &-actions {
                         display: flex;
-                        align-items: start;
-                        gap: .5rem;
+                        gap: 1rem;
 
                         &-value {
                             letter-spacing: .1rem;
@@ -251,26 +270,27 @@
                         &-remove {
                             text-decoration: none;
                             border-radius: 50%;
-                            background-color: #ce1212;
+                            background-color: var(--color-grey-light-1);
 
                             display: inline-flex; 
                             align-items: center;
                             justify-content: center;
 
-                            color: var(--color-grey-light-2);
+                            color: var(--color-grey-dark-1);
+                            text-shadow: none;
 
                             padding: 1.1rem; 
                             width: 1rem;
                             height: 1rem;
 
                             &:hover {
-                                background-color: #ed1515;
+                                background-color: var(--color-grey-light-3);
                             }
                         }
-                    }
 
-                    &-price {
-                        letter-spacing: .1rem;
+                        &-price {
+                            letter-spacing: .1rem;
+                        }
                     }
                 }
             }
@@ -797,5 +817,50 @@
                 transform: scale(1.1);
             }
         }
+    }
+}
+
+// CHECKOUT
+.cart-list {
+    width: 40%;
+    height: 80%;
+}
+
+.checkout-item-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+    font-size: 2.2rem;
+
+    &__image {
+        width: 7rem;
+        height: 7rem;
+
+        object-fit: cover;
+    }
+
+    &__info {
+        &-name {
+
+        }
+
+        &-portion {
+            display: flex;
+            gap: .5rem;
+
+
+            &-size {
+
+            }
+
+            &-quantity {
+
+            }
+        }
+    }
+
+    &__price {
+
     }
 }
