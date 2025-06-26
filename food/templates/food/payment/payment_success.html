@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Checkout{% endblock %}
+{% block content %}
+{% include 'header.html' %}
+
+<div class="page-container">
+    <div class="successfull-payment checkout-card">
+        <div class="successfull-payment__title">
+            Your Payment Was Successfull
+        </div>
+        <div class="successfull-payment__description">
+            Order was created now and will be shipped shortly.
+        </div>
+    </div>
+</div>
+
+{% include 'footer.html' %}
+
+{% endblock %}

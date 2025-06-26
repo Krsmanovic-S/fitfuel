@@ -81,30 +81,19 @@ class MenuItemPortion(models.Model):
         
         
 class Order(models.Model):
+    stripe_checkout_session_id = models.CharField(max_length=255, unique=True, null=True, blank=True)
     customer_email = models.EmailField()
+    customer_phone = models.CharField(max_length=200, blank=True)
+    customer_address = models.CharField(max_length=200, blank=True)
+    customer_zipcode = models.CharField(max_length=200, blank=True)
+    
     total_price = models.FloatField(default=0.0)
 
     order_date = models.DateTimeField(auto_now_add=True)    
     has_paid = models.BooleanField(default=False)
     is_shipped = models.BooleanField(default=False)
     
+    order_items = models.JSONField(default=list, blank=True)
+    
     def __str__(self):
-        return f"Order #{self.id} by {self.customer_email}"
-
-    def calculate_total_price(self):
-        total = sum(item.price_at_order * item.quantity for item in self.orderitem_set.all())
-        self.total_price = total
-        self.save()
-
-
-class OrderItem(models.Model):
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
-    menu_item_portion = models.ForeignKey(MenuItemPortion, on_delete=models.CASCADE)
-    quantity = models.PositiveIntegerField(default=1)
-    price_at_order = models.FloatField(default=0.0)
-
-    def __str__(self):
-        return f"{self.menu_item_portion.menu_item.name} ({self.menu_item_portion.name}) - x{self.quantity} in Order #{self.order.id}"
-
-    class Meta:
-        unique_together = ('order', 'menu_item_portion')
+        return f"Order #{self.id} - {self.customer_email}"

@@ -24,21 +24,101 @@
 
         <div class="order__total">Total: {{ total_cart_price }}€</div>
     </div>
-    <div class="checkout-info">
-        <div class="checkout-info__stripe-help checkout-card">
-            <div class="checkout-info__stripe-help-text">
-                Stripe payment testing can be done with the card number 
+    <div class="checkout-card">
+        <form class="checkout-form" method="POST" action="">
+            <h1 class="checkout-form__title">Checkout Form</h1>
+            {% csrf_token %}
+            <div class="checkout-form__form">
+                <div class="checkout-form__form-section">
+                    <label>Email</label>
+                    <div for="id_email" class="checkout-form__form-section-input">{{ checkout_form.email }}</div> 
+                </div>
+                <div class="checkout-form__form-section">
+                    <label>Phone</label>
+                    <div for="id_phone" class="checkout-form__form-section-input">{{ checkout_form.phone }}</div> 
+                </div>
+                <div class="checkout-form__form-section">
+                    <label>Address</label>
+                    <div for="id_address" class="checkout-form__form-section-input">{{ checkout_form.address }}</div> 
+                </div>
+                <div class="checkout-form__form-section">
+                    <label>Zipcode</label>
+                    <div for="id_zipcode" class="checkout-form__form-section-input">{{ checkout_form.zipcode }}</div> 
+                </div>
+                <div id="form-errors"></div>
             </div>
-            <div class="checkout-info__stripe-help-card">4242 4242 4242 4242</div>
-        </div>
-        <div class="checkout-info__button-container checkout-card">
-            <a class="main-button" href="#">Checkout</a>
-        </div>
-    </div>
 
+            <button id="main-checkout-button" class="main-button" type="submit">Checkout</button>
+        </form>
+    </div>
 </div>
 
-
 {% include 'footer.html' %}
+
+<!--Stripe JS CDN-->
+<script src="https://js.stripe.com/basil/stripe.js"></script>
+
+<script type="text/javascript">
+
+var stripe = Stripe('{{ stripe_publishable_key }}');
+var checkoutForm = document.getElementById('checkoutForm');
+var checkoutButton = document.getElementById('main-checkout-button');
+var formErrorsDiv = document.getElementById('form-errors');
+
+checkoutButton.addEventListener('click', function() {
+    event.preventDefault();
+    formErrorsDiv.innerHTML = ''; 
+
+    var emailInput = document.getElementById('id_email');
+    var phoneInput = document.getElementById('id_phone');
+    var addressInput = document.getElementById('id_address');
+    var zipcodeInput = document.getElementById('id_zipcode');
+
+    var formData = {
+        email: emailInput.value.trim(),
+        phone: phoneInput.value.trim(),
+        address: addressInput.value.trim(),
+        zipcode: zipcodeInput.value.trim()
+    };
+
+    // --- Client-side Validation ---
+    var errors = [];
+
+    if (!formData.email || !formData.phone || !formData.address || !formData.zipcode) {
+        errors.push('All fields are required.');
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+        errors.push('Please enter a valid email address.');
+    }
+
+    if (errors.length > 0) {
+        formErrorsDiv.innerHTML = errors.join(' ');
+        return;
+    }
+
+    checkoutButton.disabled = true;
+    checkoutButton.textContent = 'Processing';
+
+    fetch("{% url 'api_checkout_session' %}", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{ csrf_token }}'
+        },
+        body: JSON.stringify(formData)
+    }).then(function(response) {
+        return response.json();
+    }).then(function(session) {
+        if (session.error) {
+            alert('Error creating checkout session: ' + session.error);
+            
+            checkoutButton.disabled = false;
+            checkoutButton.textContent = 'Checkout';
+            return;
+        }
+        return stripe.redirectToCheckout({sessionId: session.sessionId});
+    })
+})
+
+</script>
 
 {% endblock %}

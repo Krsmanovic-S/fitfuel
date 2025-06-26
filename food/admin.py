@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import MenuItemCategory, MenuItem, MenuItemPortion
+from .models import MenuItemCategory, MenuItem, MenuItemPortion, Order
 
 
 @admin.register(MenuItemCategory)
@@ -20,4 +20,7 @@ class MenuItemAdmin(admin.ModelAdmin):
     list_filter = ('category',)
     search_fields = ('name', 'description', 'category__name')
     inlines = [MenuItemPortionInline]
+    
+    
+admin.site.register(Order)
     

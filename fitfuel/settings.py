@@ -9,7 +9,11 @@ SECRET_KEY = 'django-insecure-k3op@pp9#ax$natj2_ik%g)8%w#^)=mw9ht&)wz2lz9egi+7+s
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '127.0.0.1',      
+    'localhost',   
+    'c332-109-245-96-221.ngrok-free.app',
+]
 
 
 # Application definition
@@ -118,3 +122,9 @@ AUTH_USER_MODEL = 'users.CustomUser'
 # Redirect URL's
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+
+
+# Stripe Keys
+STRIPE_PUBLISHABLE_KEY = 'pk_test_51RWGwMEDxvgZLknnLLzhLgsv5d7J2A3f6BvbRweBvgTaxb1edohsIvASutO6ht3NO8JlDF4jN59BGfMZk7kwFigg00WnzS2PFG'
+STRIPE_SECRET_KEY = 'sk_test_51RWGwMEDxvgZLknnLgHS278LMzNi5Vo0vAUoXw3pCciGZv7N9K2ekYhGHzZ8BAv1kr58JLpQS5aNgaeyNGTZKMWd004ASrRO1F'
+STRIPE_WEBHOOK_SECRET = 'whsec_E8BNScmGAp7X3jCWMPruxwjvEjsBBABA'
