@@ -19,6 +19,10 @@ def menu(request):
     return render(request, 'food/menu.html', {'menu_items': menu_items, 'menu_categories': menu_categories})
 
 
+def contact(request):
+    return render(request, 'food/contact.html')
+
+
 @csrf_exempt 
 def update_session_cart(request):
     try:

@@ -111,6 +111,14 @@ body {
   width: 50rem;
 }
 
+.contact {
+  width: 70rem;
+  max-width: 90%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
 .header-brand {
   display: flex;
   justify-content: space-between;
@@ -824,6 +832,7 @@ body {
   text-align: center;
   letter-spacing: 0.2rem;
   font-weight: 600;
+  padding-top: 0.5rem;
 }
 
 .order {
@@ -956,6 +965,33 @@ body {
   justify-content: center;
   overflow-y: hidden;
   padding-bottom: 1rem;
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2.5rem;
+}
+.contact-info__section-title {
+  font-family: var(--font-primary);
+  font-size: 3.2rem;
+  letter-spacing: 0.2rem;
+  font-weight: 500;
+}
+.contact-info__section-description {
+  font-size: 1.8rem;
+}
+.contact-info__section-description span a {
+  color: var(--color-primary-dark);
+  font-weight: 700;
+}
+.contact-info__section-description span a:hover {
+  color: var(--color-primary-light);
+}
+.contact-info__section-description .email {
+  color: var(--color-primary-dark);
+  font-weight: 700;
 }
 
 @keyframes moveInBottom {

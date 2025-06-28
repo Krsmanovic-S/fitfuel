@@ -11,7 +11,7 @@ class MenuItemCategoryAdmin(admin.ModelAdmin):
 class MenuItemPortionInline(admin.TabularInline):
     model = MenuItemPortion
     extra = 1
-    fields = ('name', 'amount_in_grams_ml', 'price')
+    fields = ('name', 'amount_in_grams_ml', 'price', 'discount_percent')
     
     
 @admin.register(MenuItem)
@@ -23,4 +23,7 @@ class MenuItemAdmin(admin.ModelAdmin):
     
     
 admin.site.register(Order)
+
+admin.site.site_header = "Fit-Fuel Administration"
+admin.site.site_title = "Fit-Fuel Admin"
     
