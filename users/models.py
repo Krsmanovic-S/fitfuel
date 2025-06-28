@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from django.core.exceptions import ValidationError
+from django.utils.translation import gettext_lazy
 from django.utils import timezone
 
 
@@ -28,6 +30,16 @@ class CustomUserManager(BaseUserManager):
         return user
 
 
+# Phone validation
+def validate_phone_number(value):
+    for char in value:
+        if not (char.isdigit() or char == '+'):
+            raise ValidationError(
+                gettext_lazy('%(value)s contains invalid characters. Only numbers and "+" are allowed.'),
+                params={'value': value},
+            )
+
+
 # Custom User Model that is used in the project instead of the Django default User
 class CustomUser(AbstractBaseUser, PermissionsMixin):
 
@@ -35,6 +47,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(max_length=150)
     last_name = models.CharField(max_length=150)
 
+    phone = models.CharField(max_length=255, blank=True, null=True, verbose_name='Phone', validators=[validate_phone_number])
     address = models.CharField(max_length=255, blank=True, null=True, verbose_name='Address')
     city = models.CharField(max_length=100, blank=True, null=True, verbose_name='City')
     zip_code = models.CharField(max_length=20, blank=True, null=True, verbose_name='Zip Code')

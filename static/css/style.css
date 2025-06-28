@@ -308,6 +308,7 @@ body {
   flex: 1;
   height: 6rem;
   gap: 1rem;
+  width: 100%;
 }
 .custom-popover .popover-body .item-layout__image {
   width: 6rem;
@@ -359,6 +360,7 @@ body {
   background-color: var(--color-grey-light-3);
 }
 .custom-popover .popover-body .item-layout__info-type-actions-price {
+  width: 4rem;
   letter-spacing: 0.1rem;
 }
 
@@ -734,11 +736,14 @@ body {
   gap: 1rem;
   padding: 1rem 2.5rem;
 }
+.card-form__row-section {
+  display: flex;
+  gap: 1rem;
+}
 .card-form__form {
   height: 80%;
   display: flex;
   flex-direction: column;
-  gap: 0.7rem;
 }
 .card-form__form-section {
   width: 100%;
@@ -753,8 +758,9 @@ body {
   font-weight: 500;
 }
 .card-form__form-section input {
+  height: 4rem;
   width: 100%;
-  font-size: 1.1rem;
+  font-size: 1.5rem;
   padding: 1rem;
   border: 1px solid #ddd;
   border-radius: 0.8rem;
@@ -844,6 +850,7 @@ body {
 .cart-list {
   display: flex;
   flex-direction: column;
+  align-items: start;
   gap: 2rem;
   padding: 2rem;
   width: 95%;
@@ -856,6 +863,8 @@ body {
   align-items: center;
   gap: 3rem;
   font-size: 1.5rem;
+  height: 25%;
+  width: 100%;
 }
 .cart-list__item-image {
   width: 8rem;
@@ -872,7 +881,8 @@ body {
   gap: 0.5rem;
   font-style: italic;
 }
-.cart-list__price {
+.cart-list__item-price {
+  margin-left: auto;
   font-size: 1.8rem;
   font-weight: 550;
 }
@@ -922,6 +932,13 @@ body {
   letter-spacing: 0.1rem;
   color: inherit;
   padding: 3rem;
+  transform: translateY(0rem);
+  transition: all 0.1 ease;
+}
+.past-orders__order:hover {
+  font-size: 2.2rem;
+  color: var(--color-primary-light);
+  transform: translateY(-0.5rem);
 }
 
 .no-orders-message {
@@ -979,6 +996,16 @@ body {
   100% {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+@keyframes snapInTop {
+  0% {
+    opacity: 0;
+    transform: translateY(0rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(-0.5rem);
   }
 }
 

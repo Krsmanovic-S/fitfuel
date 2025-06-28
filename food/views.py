@@ -80,7 +80,19 @@ def checkout_page(request):
                 continue
     
     stripe_publishable_key = settings.STRIPE_PUBLISHABLE_KEY
-    checkout_form = CheckoutForm()
+    
+    if request.user.is_authenticated:
+        initial_data = {
+            'email': request.user.email,
+            'phone': getattr(request.user, 'phone', ''), 
+            'address': getattr(request.user, 'address', ''),
+            'city': getattr(request.user, 'city', ''),
+            'zip_code': getattr(request.user, 'zip_code', ''),
+        }
+        checkout_form = CheckoutForm(initial=initial_data)
+    else:
+        # For non-authenticated users, initialize an empty form
+        checkout_form = CheckoutForm()
     
     return render(request, 'food/checkout.html', {
         'cart_items': cart_context, 

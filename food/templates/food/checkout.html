@@ -17,7 +17,7 @@
                         <div class="cart-list__item-info-portion-quantity">x{{ item.quantity }}</div>
                     </div>
                 </div>
-                <div class="cart-list__price">{{ item.price_per_item }}€</div>
+                <div class="cart-list__item-price">{{ item.price_per_item }}€</div>
             </div>
             {% endfor %}
         </div>
@@ -38,12 +38,16 @@
                     <div for="id_phone" class="card-form__form-section-input">{{ checkout_form.phone }}</div> 
                 </div>
                 <div class="card-form__form-section">
+                    <label>City</label>
+                    <div for="id_city" class="card-form__form-section-input">{{ checkout_form.city }}</div> 
+                </div>
+                <div class="card-form__form-section">
                     <label>Address</label>
                     <div for="id_address" class="card-form__form-section-input">{{ checkout_form.address }}</div> 
                 </div>
                 <div class="card-form__form-section">
                     <label>Zipcode</label>
-                    <div for="id_zipcode" class="card-form__form-section-input">{{ checkout_form.zipcode }}</div> 
+                    <div for="id_zipcode" class="card-form__form-section-input">{{ checkout_form.zip_code }}</div> 
                 </div>
                 <div id="form-errors"></div>
             </div>
@@ -72,6 +76,7 @@ checkoutButton.addEventListener('click', function() {
     var emailInput = document.getElementById('id_email');
     var phoneInput = document.getElementById('id_phone');
     var addressInput = document.getElementById('id_address');
+    var cityInput = document.getElementById('id_city');
     var zipcodeInput = document.getElementById('id_zipcode');
 
     var formData = {
@@ -84,7 +89,7 @@ checkoutButton.addEventListener('click', function() {
     // --- Client-side Validation ---
     var errors = [];
 
-    if (!formData.email || !formData.phone || !formData.address || !formData.zipcode) {
+    if (!formData.email || !formData.phone || !formData.city || !formData.address || !formData.zipcode) {
         errors.push('All fields are required.');
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
         errors.push('Please enter a valid email address.');

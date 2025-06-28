@@ -13,13 +13,19 @@
             <h1 class="card-title">Edit Profile</h1>
             {% csrf_token %}
             <div class="card-form__form">
-                <div class="card-form__form-section">
-                    <label>First Name</label>
-                    <div class="card-form__form-section-input">{{ user_edit_form.first_name }}</div> 
+                <div class="card-form__row-section">
+                    <div class="card-form__form-section">
+                        <label>First Name</label>
+                        <div class="card-form__form-section-input">{{ user_edit_form.first_name }}</div> 
+                    </div>
+                    <div class="card-form__form-section">
+                        <label>Last Name</label>
+                        <div class="card-form__form-section-input">{{ user_edit_form.last_name }}</div> 
+                    </div>
                 </div>
                 <div class="card-form__form-section">
-                    <label>Last Name</label>
-                    <div class="card-form__form-section-input">{{ user_edit_form.last_name }}</div> 
+                    <label>Phone</label>
+                    <div class="card-form__form-section-input">{{ user_edit_form.phone }}</div> 
                 </div>
                 <div class="card-form__form-section">
                     <label>Address</label>

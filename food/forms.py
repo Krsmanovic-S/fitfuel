@@ -1,8 +1,9 @@
 from django import forms
 
 
-class CheckoutForm(forms.Form):
+class CheckoutForm(forms.Form):    
     email = forms.EmailField(label='Email address')
     phone = forms.CharField(label='Phone')
     address = forms.CharField(label='Address')
-    zipcode = forms.CharField(label='Zip Code')
+    city = forms.CharField(label='City')
+    zip_code = forms.CharField(label='Zip Code')

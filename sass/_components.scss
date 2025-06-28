@@ -228,6 +228,7 @@
             flex: 1;
             height: 6rem;
             gap: 1rem;
+            width: 100%;
 
             &__image {
                 width: 6rem;
@@ -290,6 +291,7 @@
                         }
 
                         &-price {
+                            width: 4rem;
                             letter-spacing: .1rem;
                         }
                     }
@@ -747,11 +749,15 @@
     gap: 1rem;
     padding: 1rem 2.5rem;
 
+    &__row-section {
+        display: flex;
+        gap: 1rem;
+    }
+
     &__form {
         height: 80%;
         display: flex;
         flex-direction: column;
-        gap: .7rem;
 
         &-section {
             width: 100%;
@@ -767,8 +773,9 @@
             }
 
             input {
+                height: 4rem;
                 width: 100%;
-                font-size: 1.1rem;
+                font-size: 1.5rem;
                 padding: 1rem;
                 border: 1px solid #ddd;
                 border-radius: .8rem;
@@ -876,6 +883,7 @@
 .cart-list {
     display: flex;
     flex-direction: column;
+    align-items: start;
     gap: 2rem;
     padding: 2rem;
     width: 95%;
@@ -888,6 +896,8 @@
         align-items: center;
         gap: 3rem;
         font-size: 1.5rem;
+        height: 25%;
+        width: 100%;
 
         &-image {
             width: 8rem;
@@ -917,12 +927,13 @@
                 }
             }
         }
-    }
 
-    &__price {
-        font-size: 1.8rem;
-        font-weight: 550;
-    }
+        &-price {
+            margin-left: auto;
+            font-size: 1.8rem;
+            font-weight: 550;
+        }
+    }    
 }
 
 // SUCCESSFULL PAYMENT
@@ -977,6 +988,15 @@
         letter-spacing: .1rem;
         color: inherit;
         padding: 3rem;
+
+        transform: translateY(0rem);
+        transition: all 0.1 ease;
+
+        &:hover {
+            font-size: 2.2rem;
+            color: var(--color-primary-light);
+            transform: translateY(-.5rem);
+        }
     }
 }
 
