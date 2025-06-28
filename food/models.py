@@ -97,3 +97,23 @@ class Order(models.Model):
     
     def __str__(self):
         return f"Order #{self.id} - {self.customer_email}"
+    
+    def get_order_macros(self):
+        macros = {
+            'carbs': 0,
+            'protein': 0,
+            'fats': 0
+        }
+        
+        for item in self.order_items:
+            portion = MenuItemPortion.objects.get(id=item['portion_id'])
+            portion_macros = portion.calculate_macros_for_portion()
+            
+            macros['carbs'] += portion_macros['carbs']
+            macros['protein'] += portion_macros['protein']
+            macros['fats'] += portion_macros['fats']
+            
+        return macros
+            
+            
+            

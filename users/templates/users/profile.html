@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+{% block title %}FitFuel - Edit Profile{% endblock %}
+{% block content %}
+{% include 'header.html' %}
+
+<div class="page-container">
+    <div id="totalCarbs" hidden>{{ all_macros.carbs }}</div>
+    <div id="totalProtein" hidden>{{ all_macros.protein }}</div>
+    <div id="totalFats" hidden>{{ all_macros.fats }}</div>
+
+    <div class="straight-card">
+        <form class="card-form info-form" method="POST" action="">
+            <h1 class="card-title">Edit Profile</h1>
+            {% csrf_token %}
+            <div class="card-form__form">
+                <div class="card-form__form-section">
+                    <label>First Name</label>
+                    <div class="card-form__form-section-input">{{ user_edit_form.first_name }}</div> 
+                </div>
+                <div class="card-form__form-section">
+                    <label>Last Name</label>
+                    <div class="card-form__form-section-input">{{ user_edit_form.last_name }}</div> 
+                </div>
+                <div class="card-form__form-section">
+                    <label>Address</label>
+                    <div class="card-form__form-section-input">{{ user_edit_form.address }}</div> 
+                </div>
+                <div class="card-form__form-section">
+                    <label>City</label>
+                    <div class="card-form__form-section-input">{{ user_edit_form.city }}</div> 
+                </div>
+                <div class="card-form__form-section">
+                    <label>Zipcode</label>
+                    <div class="card-form__form-section-input">{{ user_edit_form.zip_code }}</div> 
+                </div>
+                <div id="form-errors"></div>
+            </div>
+
+            <button class="main-button" type="submit">Save</button>
+        </form>
+    </div>
+    
+    <div class="profile-info">
+        <div class="profile-details straight-card">
+            <div class="card-title">Your Orders</div>
+            {% if past_orders %}
+                <div class="past-orders">
+                    {% for order in past_orders %}
+                    <a href="" class="past-orders__order round-card">
+                        <p>{{ order.order_date|date:"M d, Y" }} </p>   
+                        <p>Total: {{ order.total_price }}€</p>
+                    </a>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p class="no-orders-message">You have no past orders.</p>
+            {% endif %}
+            </div>
+
+            <div class="profile-details straight-card">
+                <div class="card-title">Macro Breakdown</div>
+                {% if past_orders %}
+                <div class="macro-graph">
+                    <canvas id="macroChart"></canvas>
+                </div>
+                {% else %}
+                <p class="no-orders-message">Nothing to show via chart.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include 'footer.html' %}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script type="text/javascript">
+
+    carbs = parseInt(document.getElementById('totalCarbs').textContent);
+    protein = parseInt(document.getElementById('totalProtein').textContent);
+    fats = parseInt(document.getElementById('totalFats').textContent);
+
+    totalMacros = carbs + protein + fats;
+
+    carbPercent = ((carbs / totalMacros) * 100).toFixed(2)
+    proteinPercent = ((protein / totalMacros) * 100).toFixed(2)
+    fatPercent = ((fats / totalMacros) * 100).toFixed(2)
+
+    // ChartJS
+    const ctx = document.getElementById('macroChart');
+    new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Carbs ' + carbPercent  + '%', 'Protein ' + proteinPercent + '%', 'Fats ' + fatPercent + '%'],
+            datasets: [{
+                label: 'grams',
+                data: [carbs, protein, fats],
+                borderWidth: 1,
+
+                backgroundColor: [
+                    'rgba(95, 66, 13, 0.3)',
+                    'rgba(35, 115, 172, 0.3)',
+                    'rgba(195, 195, 29, 0.3)'
+                ],
+                borderColor: [
+                    'rgba(79, 55, 11, 1)',
+                    'rgba(29, 98, 148, 1)',
+                    'rgba(171, 171, 25, 1)'
+                ]
+            }]
+        },
+        options: {
+            responsive: true, 
+            maintainAspectRatio: false
+        }
+    });
+</script>
+
+{% endblock %}

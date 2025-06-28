@@ -5,20 +5,20 @@
 
 <!--Login Form -->
 <div class="page-container">
-    <div class="form-container">
-        <h1 class="form-container__title">Login</h1>
-        <form method="POST" class="form-container__form">
+    <div class="card-form round-card auth-form">
+        <h1 class="card-title">Login</h1>
+        <form method="POST" class="card-form__form">
             {% csrf_token %}
-            <div class="form-container__form-section">
+            <div class="card-form__form-section">
                 <label>Email</label>
-                <div class="form-container__form-section-field">{{ login_form.email }}</div> 
+                <div class="card-form__form-section-field">{{ login_form.email }}</div> 
             </div>
-            <div class="form-container__form-section">
+            <div class="card-form__form-section">
                 <label>Password</label>
-                <div class="form-container__form-section-field">{{ login_form.password }}</div> 
+                <div class="card-form__form-section-field">{{ login_form.password }}</div> 
             </div>
 
-            <button class="nav-button" type="submit">Login</button>
+            <button class="main-button" type="submit">Login</button>
         </form>
     </div>
 </div>

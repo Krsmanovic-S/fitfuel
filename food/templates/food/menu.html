@@ -30,7 +30,7 @@
         <div class="menu-item-grid">
             {% for item in menu_items %}
                 {% if item.category.id == category.id %}
-                <div class="item-container">
+                <div class="item-container round-card">
 
                     <div class="item-container__item-image">
                         <img src="{{ item.image_url }}" alt="Food Item Image" class="item-image">

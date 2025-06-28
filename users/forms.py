@@ -43,16 +43,22 @@ class LoginForm(forms.Form):
     email = forms.EmailField(label='Email address')
     password = forms.CharField(widget=forms.PasswordInput, label='Password')
 
-    def clean(self):
-        email = self.cleaned_data.get('email')
-        password = self.cleaned_data.get('password')
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop('request', None) 
+        super().__init__(*args, **kwargs)
 
-        if email and password:
-            user = authenticate(self.request, email=email, password=password)
-            if not user:
-                raise ValidationError("Invalid email or password.")
-            self.user = user
-        return self.cleaned_data
+    def clean(self):
+        cleaned_data = super().clean()
+        email = cleaned_data.get('email')
+        password = cleaned_data.get('password')
+
+        user = authenticate(self.request, email=email, password=password) 
+
+        if not user:
+            raise ValidationError("Invalid email or password.", code='invalid_login')
+        
+        self.user = user 
+        return cleaned_data 
     
 
 class UserEditForm(forms.ModelForm):

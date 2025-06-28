@@ -120,6 +120,7 @@ def create_checkout_session(request):
                     'metadata': {
                         'menu_item_name': portion.menu_item.name,
                         'portion_name': portion.name,
+                        'portion_id': portion.id
                     }
                 },
                 'unit_amount': int(portion.get_final_price() * 100),
@@ -203,10 +204,12 @@ def stripe_webhook(request):
                     
                     menu_item_name = product['metadata'].get('menu_item_name', '')
                     portion_name = product['metadata'].get('portion_name', '')
+                    portion_id = product['metadata'].get('portion_id', '')
                     
                     # JSON Format for the Order
                     processed_order_items.append({
                         'item_name': menu_item_name,
+                        'portion_id': portion_id,
                         'portion_name': portion_name,
                         'quantity': item.quantity,
                         'total_price': item.amount_total / 100,

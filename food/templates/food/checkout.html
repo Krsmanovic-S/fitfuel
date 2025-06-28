@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}Checkout{% endblock %}
+{% block title %}FitFuel - Checkout{% endblock %}
 {% block content %}
 {% include 'header.html' %}
 
 <div class="page-container">
-    <div class="order checkout-card">
+    <div class="order straight-card">
         <div class="cart-list">
             {% for item in cart_items %}
             <div class="cart-list__item">
@@ -24,26 +24,26 @@
 
         <div class="order__total">Total: {{ total_cart_price }}€</div>
     </div>
-    <div class="checkout-card">
-        <form class="checkout-form" method="POST" action="">
-            <h1 class="checkout-form__title">Checkout Form</h1>
+    <div class="straight-card">
+        <form class="card-form info-form" method="POST" action="">
+            <h1 class="card-title">Checkout Form</h1>
             {% csrf_token %}
-            <div class="checkout-form__form">
-                <div class="checkout-form__form-section">
+            <div class="card-form__form">
+                <div class="card-form__form-section">
                     <label>Email</label>
-                    <div for="id_email" class="checkout-form__form-section-input">{{ checkout_form.email }}</div> 
+                    <div for="id_email" class="card-form__form-section-input">{{ checkout_form.email }}</div> 
                 </div>
-                <div class="checkout-form__form-section">
+                <div class="card-form__form-section">
                     <label>Phone</label>
-                    <div for="id_phone" class="checkout-form__form-section-input">{{ checkout_form.phone }}</div> 
+                    <div for="id_phone" class="card-form__form-section-input">{{ checkout_form.phone }}</div> 
                 </div>
-                <div class="checkout-form__form-section">
+                <div class="card-form__form-section">
                     <label>Address</label>
-                    <div for="id_address" class="checkout-form__form-section-input">{{ checkout_form.address }}</div> 
+                    <div for="id_address" class="card-form__form-section-input">{{ checkout_form.address }}</div> 
                 </div>
-                <div class="checkout-form__form-section">
+                <div class="card-form__form-section">
                     <label>Zipcode</label>
-                    <div for="id_zipcode" class="checkout-form__form-section-input">{{ checkout_form.zipcode }}</div> 
+                    <div for="id_zipcode" class="card-form__form-section-input">{{ checkout_form.zipcode }}</div> 
                 </div>
                 <div id="form-errors"></div>
             </div>

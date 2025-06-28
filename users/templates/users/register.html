@@ -5,32 +5,32 @@
 
 <!--Register Form -->
 <div class="page-container">
-    <div class="form-container">
-        <h1 class="form-container__title">Register</h1>
-        <form method="POST" class="form-container__form">
+    <div class="card-form round-card auth-form">
+        <h1 class="card-title">Register</h1>
+        <form method="POST" class="card-form__form">
             {% csrf_token %}
-            <div class="form-container__form-section">
+            <div class="card-form__form-section">
                 <label>Email</label>
-                <div class="form-container__form-section-field">{{ register_form.email }}</div> 
+                <div class="card-form__form-section-field">{{ register_form.email }}</div> 
             </div>
-            <div class="form-container__form-section">
+            <div class="card-form__form-section">
                 <label>First Name</label>
-                <div class="form-container__form-section-field">{{ register_form.first_name }}</div> 
+                <div class="card-form__form-section-field">{{ register_form.first_name }}</div> 
             </div>
-            <div class="form-container__form-section">
+            <div class="card-form__form-section">
                 <label>Last Name</label>
-                <div class="form-container__form-section-field">{{ register_form.last_name }}</div> 
+                <div class="card-form__form-section-field">{{ register_form.last_name }}</div> 
             </div>
-            <div class="form-container__form-section">
+            <div class="card-form__form-section">
                 <label>Password</label>
-                <div class="form-container__form-section-field">{{ register_form.password }}</div> 
+                <div class="card-form__form-section-field">{{ register_form.password }}</div> 
             </div>
-            <div class="form-container__form-section">
+            <div class="card-form__form-section">
                 <label>Confirm Password</label>
-                <div class="form-container__form-section-field">{{ register_form.password_confirm }}</div> 
+                <div class="card-form__form-section-field">{{ register_form.password_confirm }}</div> 
             </div>
 
-            <button class="nav-button" type="submit">Register</button>
+            <button class="main-button" type="submit">Register</button>
         </form>
     </div>
 </div>
