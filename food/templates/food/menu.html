@@ -57,7 +57,14 @@
                                        data-fats="{{ calculated_macros.fats }}" data-calories="{{ calculated_macros.calories }}">
                                 <label for="portion-{{ portion.id }}">
                                     <span class="item-container__portion-container-option__name">{{ portion.name }}</span>
-                                    <span class="item-container__portion-container-option__price">{{ portion.price }}€</span>
+                                    <span class="item-container__portion-container-option__price">
+                                        {{ portion.price }}€
+                                        {% if portion.discount_percent %}
+                                        {% with discount_value=portion.get_discount_price %}
+                                        <div class="item-container__portion-container-option__price-discount">{{ discount_value }}€</div>
+                                        {% endwith %}
+                                        {% endif %}
+                                    </span>
                                 </label>
                             </div>
                             {% endwith %}

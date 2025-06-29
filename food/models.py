@@ -73,6 +73,9 @@ class MenuItemPortion(models.Model):
             'fats': portion_fats
         }
         
+    def get_discount_price(self):
+        return round(self.price - self.price * (self.discount_percent / 100), 1)
+        
     def get_final_price(self):
         if self.discount_percent and self.discount_percent > 0:
             discount_amount = self.price * (self.discount_percent / 100)

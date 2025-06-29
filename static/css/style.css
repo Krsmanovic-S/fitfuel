@@ -712,9 +712,22 @@ body {
   color: var(--color-grey-dark-1);
 }
 .item-container__portion-container-option__price {
+  position: relative;
   font-size: 1.5rem;
   font-weight: 600;
   color: var(--color-primary-dark);
+}
+.item-container__portion-container-option__price:has(.item-container__portion-container-option__price-discount) {
+  text-decoration: line-through;
+  color: var(--color-grey-dark-1);
+}
+.item-container__portion-container-option__price-discount {
+  position: absolute;
+  bottom: 1.25rem;
+  left: 2rem;
+  font-size: 1.7rem;
+  font-weight: 600;
+  color: rgb(224, 23, 23);
 }
 .item-container__cart-button {
   display: flex;

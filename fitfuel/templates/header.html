@@ -133,9 +133,17 @@ function addToCart(buttonElement, event) {
     if (selectedPortionRadio) {
 
         const portionID = selectedPortionRadio.id.replace('portion-', '');
+        let finalPrice;
 
         const priceSpan = selectedPortionRadio.nextElementSibling.querySelector('.item-container__portion-container-option__price');
-        const finalPrice = parseFloat(priceSpan.textContent.replace('€', '').trim());
+        const discountPriceSpan = selectedPortionRadio.nextElementSibling.querySelector('.item-container__portion-container-option__price-discount');
+
+        // Use the discounted price if it exists
+        if (discountPriceSpan) {
+            finalPrice = parseFloat(discountPriceSpan.textContent.replace('€', '').trim());
+        } else {
+            finalPrice = parseFloat(priceSpan.textContent.replace('€', '').trim());
+        }
 
         if(cart[portionID] === undefined) {
             // Anchor tag stores all menu item information for frontend display

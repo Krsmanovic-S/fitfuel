@@ -707,9 +707,25 @@
             }
             
             &__price {
+                position: relative;
                 font-size: 1.5rem;
                 font-weight: 600;
                 color: var(--color-primary-dark);
+
+                &:has(.item-container__portion-container-option__price-discount) {
+                    text-decoration: line-through;
+                    color: var(--color-grey-dark-1);
+                }
+
+                &-discount {
+                    position: absolute;
+                    bottom: 1.25rem;
+                    left: 2rem;
+
+                    font-size: 1.7rem;
+                    font-weight: 600;
+                    color: rgb(224, 23, 23);
+                }
             }
         }
     }
