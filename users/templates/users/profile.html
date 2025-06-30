@@ -52,7 +52,7 @@
             {% if past_orders %}
                 <div class="past-orders">
                     {% for order in past_orders %}
-                    <a href="" class="past-orders__order round-card">
+                    <a href="{% url 'order_view' id=order.id %}" class="past-orders__order round-card">
                         <p>{{ order.order_date|date:"M d, Y" }} </p>   
                         <p>Total: {{ order.total_price }}€</p>
                     </a>

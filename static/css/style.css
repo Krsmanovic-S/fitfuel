@@ -644,6 +644,7 @@ body {
   font-weight: 500;
   letter-spacing: 0.3rem;
   text-align: center;
+  height: 10%;
   padding: 1rem 0.3rem;
   color: var(--color-grey-dark-1);
   border-bottom: var(--line);
@@ -657,6 +658,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-around;
+  height: 10%;
 }
 .item-container__macros-carbs {
   background-color: var(--color-macro-carbs);
@@ -679,6 +681,8 @@ body {
   align-items: center;
   justify-content: center;
   text-align: center;
+  overflow-y: auto;
+  height: 15%;
 }
 .item-container__portion-container {
   padding: 1rem 2.5rem;
@@ -713,7 +717,7 @@ body {
 }
 .item-container__portion-container-option__price {
   position: relative;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   font-weight: 600;
   color: var(--color-primary-dark);
 }

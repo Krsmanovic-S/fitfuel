@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from .forms import RegisterForm, LoginForm, UserEditForm
-from food.models import Order
+from food.models import Order, MenuItemPortion
 
 
 def register_view(request):
@@ -69,4 +69,25 @@ def profile(request):
         'past_orders': past_orders,
         'all_macros': all_macros
     })
+    
+    
+def order_view(request, id):
+    order = Order.objects.get(id=id)
+
+    context_items = []
+    for item in order.order_items:
+        portion = MenuItemPortion.objects.get(id=item['portion_id'])
+        
+        context_items.append({
+            'menu_item_name': item['item_name'],
+            'portion_name': item['portion_name'],
+            'quantity': item['quantity'],
+            'price_per_item': portion.get_final_price() * item['quantity'],
+            'image_url': portion.menu_item.image_url,
+        })
+        
+    return render(request, 'users/order_view.html', {'order': order, 'context_items': context_items})
+        
+    
+    
     

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}FitFuel - Log In{% endblock %}
+{% block content %}
+{% include 'header.html' %}
+
+<div class="page-container">
+    <div class="straight-card contact">
+        <h1 class="card-title">Order #{{ order.id }}</h1>
+        <div class="cart-list">
+            {% for item in context_items %}
+            <div class="cart-list__item">
+                <img src="{{ item.image_url }}" alt="" class="cart-list__item-image">
+                <div class="cart-list__item-info">
+                    <div class="cart-list__item-info-name">{{ item.menu_item_name }}</div>
+                    <div class="cart-list__item-info-portion">
+                        <div class="cart-list__item-info-portion-size">{{ item.portion_name }}</div>
+                        <div class="cart-list__item-info-portion-quantity">x{{ item.quantity }}</div>
+                    </div>
+                </div>
+                <div class="cart-list__item-price">{{ item.price_per_item }}€</div>
+            </div>
+            {% endfor %}
+
+            <div class="order__total">Total: {{ order.total_price }}€</div>
+        </div>
+    </div>
+</div>
+
+{% include 'footer.html' %}
+{% endblock %}

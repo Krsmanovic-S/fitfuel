@@ -83,6 +83,7 @@ class MenuItemPortion(models.Model):
         return round(self.price, 2)
         
         
+# Orders are created after checkout to gather all items purchased and the customer information
 class Order(models.Model):
     stripe_checkout_session_id = models.CharField(max_length=255, unique=True, null=True, blank=True)
     customer_email = models.EmailField()
@@ -96,6 +97,12 @@ class Order(models.Model):
     has_paid = models.BooleanField(default=False)
     is_shipped = models.BooleanField(default=False)
     
+    # This JSON field is structured like this:
+    # 'item_name': Name of the item,
+    # 'portion_id': ID of the item portion - used when we need to display info on the Frontend (e.g. past orders),
+    # 'portion_name': Name of the portion - display purposes,
+    # 'quantity': How much of any particular portion has been bought,
+    # 'total_price': Sum of all portions, quantities and prices together, this is how much the customer needs to pay
     order_items = models.JSONField(default=list, blank=True)
     
     def __str__(self):
