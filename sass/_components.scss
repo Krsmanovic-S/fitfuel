@@ -1,3 +1,5 @@
+@use 'base';
+
 // HEADER
 .header-brand {
     display: flex;
@@ -5,49 +7,77 @@
     align-items: center;
     position: absolute;
     left: 5%;
-    gap: 2rem;
+    gap: .5rem;
+
+    @media only screen and (max-width: base.$bp-large) {
+        gap: 1rem;
+    }
 
     &__name {
-        text-decoration: none;
         text-transform: uppercase;
         font-size: 4rem;
         letter-spacing: .7rem;
         font-weight: 700;
         font-style: italic;
         color: var(--color-grey-light-1);
-        text-shadow: .5rem .5rem .5rem rgba(0, 0, 0, 0.5);
+        text-shadow: var(--text-shadow);
+
+        @media only screen and (max-width: base.$bp-largest) {
+            font-size: 3.2rem;
+        }
+
+        @media only screen and (max-width: base.$bp-large) {
+            gap: 2.8rem;
+        }        
+        
+        @media only screen and (max-width: base.$bp-small) {
+            font-size: 2.5rem; 
+        }
 
         &:hover {
             color: var(--color-grey-light-2);
-            cursor: pointer;
         }
     }
 }
 
 .logo-img {
-    height: 4rem; 
+    height: 4.5rem; 
+
+    @media only screen and (max-width: base.$bp-smallest) {
+        height: 3.2rem; 
+    }
 }
 
 .user-nav {
     display: flex;
     align-content: center;
     gap: 3rem;
-    background-color: transparent;
+
+    @media only screen and (max-width: base.$bp-medium) {
+        display: none;
+    }
+}
+
+.nav-button-dropdown {    
+    display: none;
+
+    @media only screen and (max-width: base.$bp-medium) {
+        display: block !important;
+    }
 }
 
 .icon-container {
     display: flex;
     align-items: center;
     position: absolute;
-    right: 5%;
+    right: 3%;
     gap: 2rem;
 
     &__cart {
-        font-size: 1.2rem;
-        font-weight: 800;
-
-        background-color: var(--color-grey-light-1);
-        color: var(--color-primary);
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        min-width: 3rem; 
 
         position: absolute;
         bottom: -.5rem;
@@ -55,11 +85,11 @@
         padding: .6rem .6rem;
         border-radius: 50%;
 
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-        min-width: 3rem; 
-        aspect-ratio: 1 / 1
+        font-size: 1.2rem;
+        font-weight: 800;
+
+        background-color: var(--color-grey-light-1);
+        color: var(--color-primary);
     }
 }
 
@@ -75,27 +105,44 @@
 // FOOTER
 .copyright-text {
     position: absolute;
-    left: 10%;
+    left: 5%;
 
     font-size: 1.8rem;
     letter-spacing: .3rem;
-    font-weight: 400;
+    font-weight: 600;
     font-style: italic;
     color: var(--color-grey-light-1);
+
+    @media only screen and (max-width: base.$bp-large) {
+        font-size: 1.6rem; 
+    }
+
+    @media only screen and (max-width: base.$bp-medium) {
+        font-size: 1.4rem; 
+    }
+    
+    @media only screen and (max-width: base.$bp-small) {
+        left: 5%;
+        font-size: 1.1rem; 
+    }
+
+    @media only screen and (max-width: base.$bp-smallest) {
+        left: 2%;
+        font-size: .9rem; 
+    }
 }
 
 // BUTTONS
 .nav-button {
-    text-decoration: none;
     text-transform: uppercase;
     letter-spacing: .2rem;
     font-weight: 600;
     font-size: 2.2rem;
     text-align: center;
     width: 20rem;
-
     border-radius: 100px;
     padding: 0.5rem 3rem;
+
     background-color: var(--color-grey-light-1);
     color: var(--color-primary);
     box-shadow: var(--shadow-dark-small);
@@ -105,24 +152,33 @@
 
     &:hover {
         background-color: rgba(255, 255, 255, 0.1);
-        color: #FFF;
+        color: var(--color-grey-light-1);
         transform: scale(1.05);
         font-weight: 700;
+    }
+
+    @media only screen and (max-width: base.$bp-largest) {
+        font-size: 2rem;
+        width: 18rem;
+    }
+
+    @media only screen and (max-width: base.$bp-large) {
+        font-size: 1.6rem;
+        width: 14rem;
     }
 }
 
 .main-button {
-    text-transform: uppercase;
-    text-decoration: none;
-    letter-spacing: .3rem;
-    font-weight: 400;
-    font-size: 2.5rem;
-    overflow: hidden;
-    
     display: inline-block;
     border-radius: 100px;
     padding: 1.8rem 3rem;
     z-index: 10;
+    overflow: hidden;
+
+    text-transform: uppercase;
+    letter-spacing: .3rem;
+    font-weight: 400;
+    font-size: 2.5rem;
     
     background-image: linear-gradient(to right bottom, rgba(139, 195, 75, 1), rgba(56, 142, 60, 1));
     color: #FFF;
@@ -135,45 +191,53 @@
 
     &:hover {
         background-color: rgba(76, 175, 80, 0.8);
-        color: #FFF;
+        color: var(--color-grey-light-1);
         font-weight: 700;
-        text-shadow: .3rem .3rem .3rem rgba(0, 0, 0, 0.5);
+        text-shadow: var(--text-shadow-small);
         box-shadow: var(--shadow-dark-large);
-        transform: translateY(-5px);
+        transform: translateY(-.5rem);
     }
 }
 
 .icon-link {
-    text-decoration: none;
-    padding: 2.2rem; 
-
     display: inline-flex; 
+    justify-content: center;
+    align-items: center;
     width: 2rem;
     height: 2rem;
-    align-items: center;
-    justify-content: center;
-    
+    padding: 2.2rem; 
+
     border-radius: 50%; 
     background-color: var(--color-grey-light-1);
     box-shadow: var(--shadow-dark-small);
 
     transition: all 0.1s ease; 
 
+    @media only screen and (max-width: base.$bp-smallest) {
+        padding: 1.6rem; 
+        width: 1.4rem;
+        height: 1.4rem; 
+    }
+
     &:hover {
         background-color: rgba(255, 255, 255, 0.1);
 
         i {
-            color: #FFF;
+            color: var(--color-grey-light-1);
         }
     }
 
     i {
-        font-size: 2rem;
-        color: var(--color-primary); 
-
         display: inline-flex;
         align-items: center;
         justify-content: center;
+
+        font-size: 2rem;
+        color: var(--color-primary); 
+
+        @media only screen and (max-width: base.$bp-smallest) {
+            font-size: 1.6rem;
+        }
     }
 }
 
@@ -190,8 +254,8 @@
         font-family: var(--font-primary);
         font-size: 3rem;
         text-transform: uppercase;
-        letter-spacing: .2rem;
         text-align: center;
+        letter-spacing: .2rem;
 
         border-top-left-radius: .5rem; 
         border-top-right-radius: .5rem;
@@ -221,11 +285,9 @@
         flex-direction: column;
         align-items: center;
         gap: 1.5rem;
-        flex: 1;
 
         .item-layout {
             display: flex;
-            flex: 1;
             height: 6rem;
             gap: 1rem;
             width: 100%;
@@ -244,7 +306,7 @@
                 flex: 1;
                 
                 font-weight: 700;
-                text-shadow: .1rem .1rem .2rem rgba(0,0,0,0.5);
+                text-shadow: var(--text-shadow-very-small);
 
                 &-name {
                     text-align: start;
@@ -254,7 +316,6 @@
                     display: flex;
                     justify-content: space-between;
 
-                    flex: 1;
                     font-size: 1.5rem;
 
                     &-portion {
@@ -270,20 +331,17 @@
                         }
 
                         &-remove {
-                            text-decoration: none;
-                            border-radius: 50%;
-                            background-color: var(--color-grey-light-1);
-
                             display: inline-flex; 
                             align-items: center;
                             justify-content: center;
-
-                            color: var(--color-grey-dark-1);
-                            text-shadow: none;
-
-                            padding: 1.1rem; 
                             width: 1rem;
                             height: 1rem;
+                            border-radius: 50%;
+                            padding: 1.1rem; 
+                            
+                            background-color: var(--color-grey-light-1);
+                            color: var(--color-grey-dark-1);
+                            text-shadow: none;
 
                             &:hover {
                                 background-color: var(--color-grey-light-3);
@@ -298,6 +356,13 @@
                 }
             }
         }
+
+        .nav-button {
+            @media only screen and (max-width: base.$bp-smallest) {
+                font-size: 1.3rem;
+                letter-spacing: .1rem;
+            }
+        }
     }
 }
 
@@ -305,13 +370,13 @@
 .landing-image {
     position: relative;
     height: 90vh;
+    width: 100%;
+    overflow: hidden;
 
     background-image: url("https://images.stockcake.com/public/9/f/1/9f156348-4b50-4ffb-9dda-d3a00537a4c9/healthy-meal-prep-stockcake.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-
-    overflow: hidden;
 
     &::before {
         content: "";
@@ -326,21 +391,22 @@
     }
 
     &__content {
-        height: 100%;
-
         display: flex;
         align-items: center;
         justify-content: center;
         flex-direction: column;
+        height: 100%;
         width: 100%;
 
         .subtitle {
             font-family: var(--font-primary);
-            font-size: 4.5rem;
+            font-size: 4.2rem;
             font-weight: 200;
             letter-spacing: 1rem;
-            text-shadow: .5rem .5rem .5rem rgba(0, 0, 0, 0.5);
+            text-shadow: var(--text-shadow);
             text-transform: uppercase;
+            text-wrap: pretty;
+            text-align: center;
             margin-bottom: 4rem;
             
             color: var(--color-grey-light-1);
@@ -352,6 +418,25 @@
     }
 }
 
+.index-title {
+    font-family: var(--font-primary);
+    font-size: 4.5rem;
+    font-weight: 200;
+    text-transform: uppercase;
+    text-wrap: pretty;
+    text-align: center;
+    letter-spacing: 1rem;
+
+    margin-bottom: 4rem;
+    
+    color: var(--color-grey-dark-1);      
+
+    @media only screen and (max-width: base.$bp-smallest) {
+        font-size: 2.6rem;
+        letter-spacing: .5rem;
+    }
+}
+
 .benefits {
     display: flex;
     flex-direction: column;
@@ -359,64 +444,92 @@
     justify-content: center;
     padding: 3rem 3rem;
 
-    background-color: #FFF;
+    @media only screen and (max-width: base.$bp-largest) {
+        padding: 2rem 2rem;
+    }
 
-    &__title {
-        font-family: var(--font-primary);
-        font-size: 4.5rem;
-        font-weight: 200;
-        letter-spacing: 1rem;
-        text-transform: uppercase;
-        margin-bottom: 4rem;
-        
-        color: var(--color-grey-dark-1);        
+    @media only screen and (max-width: base.$bp-smallest) {
+        padding: .5rem .5rem;
     }
 
     &__showcase {
         display: grid;
-        grid-template-rows: repeat(2, 1fr);
         grid-template-columns: repeat(3, 1fr);
         grid-row-gap: 2rem;
         grid-column-gap: 1rem;
         padding: 0 1rem;
 
+        @media only screen and (max-width: base.$bp-large) {
+            grid-template-columns: 1fr;
+        }
+
         &-item {
             display: flex;
             align-items: start;
+            gap: 1.8rem;
 
             i {
-                font-size: 2.2rem;
-                margin-right: 2rem;
+                display: inline-flex; 
+                align-items: center;
+                justify-content: center;
                 padding: 1.6rem; 
+                border-radius: 50%;
+                
+                font-size: 2.2rem;
                 line-height: 1;
 
                 color: var(--color-primary);
                 background-color: var(--color-grey-light-1);
-                box-shadow: 0 .5rem 1.5rem rgba(0, 0, 0, 0.2);
+                box-shadow: var(--shadow-dark-very-small);
 
-                display: inline-flex; 
-                align-items: center;
-                justify-content: center;
-                
-                border-radius: 50%;
+                @media only screen and (max-width: base.$bp-smallest) {
+                    font-size: 1.4rem;
+                    padding: 1.3rem; 
+                }
             }
 
             &-content {
-                
                 display: flex;
                 flex-direction: column;
                 justify-content: start;
 
                 h3 {
                     font-size: 2rem;
-                    text-transform: uppercase;
                     letter-spacing: .7rem;
+                    text-transform: uppercase;
                     color: var(--color-grey-dark-2);
+
+                    @media only screen and (max-width: base.$bp-largest) {
+                        font-size: 1.5rem;
+                        letter-spacing: .4rem;
+                    }
+
+                    @media only screen and (max-width: base.$bp-large) {
+                        font-size: 3rem;
+                        letter-spacing: .7rem;
+                    }
+
+                    @media only screen and (max-width: base.$bp-small) {
+                        font-size: 2.4rem;
+                    }
+
+                    @media only screen and (max-width: base.$bp-smallest) {
+                        font-size: 2.2rem;
+                        letter-spacing: .4rem;
+                    }
                 }
 
                 p {
                     font-size: 1.4rem;
                     color: var(--color-grey-dark-3);
+
+                    @media only screen and (max-width: base.$bp-large) {
+                        font-size: 2rem;
+                    }
+
+                    @media only screen and (max-width: base.$bp-small) {
+                        font-size: 1.5rem;
+                    }
                 }
             }
         }
@@ -428,17 +541,11 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 3rem 3rem;
+    gap: 3rem;
+    padding: 2rem 3rem;
 
-    &__title {
-        font-family: var(--font-primary);
-        font-size: 3.5rem;
-        font-weight: 200;
-        letter-spacing: 1rem;
-        text-transform: uppercase;
-        margin-bottom: 4rem;
-        
-        color: var(--color-grey-dark-1);    
+    @media only screen and (max-width: base.$bp-smallest) {
+        padding: 0 .5rem;
     }
 
     &__container {
@@ -447,39 +554,52 @@
         justify-content: center;
         gap: 3rem;
 
+        @media only screen and (max-width: base.$bp-medium) {
+            flex-direction: column;
+            gap: 2rem;
+
+            &:last-child {
+                margin-bottom: 3rem;
+            }
+        }
+
         &-steps {
             position: relative;
             width: 30%;
 
+            @media only screen and (max-width: base.$bp-medium) {
+                width: 90%;
+            }
+
             &__number {
+                display: flex;
+                justify-content: center;
+                align-items: center;
                 position: absolute;
                 top: -1rem;
                 left: -1rem;
                 z-index: 10;
-
-                font-size: 4rem;
-                font-weight: 700;
-                color: var(--color-grey-light-1);
                 border-radius: 50%;
-                background-color: var(--color-primary-dark);
                 height: 5.5rem;
                 width: 5.5rem;
 
-                display: flex;
-                justify-content: center;
-                align-items: center;
+                font-size: 4rem;
+                font-weight: 700;
+
+                color: var(--color-grey-light-1);
+                background-color: var(--color-primary-dark);
             }
 
             &__card {
-                background-color: var(--color-grey-light-1);
-                border-radius: 1.2rem;
-                border: 1px solid var(--color-grey-light-2); 
-                box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); 
-                overflow: hidden; 
                 display: flex;
                 flex-direction: column; 
-                
                 height: 40rem; 
+                overflow: hidden; 
+                border-radius: 1.2rem;
+                
+                background-color: var(--color-grey-light-1);
+                border: 1px solid var(--color-grey-light-2); 
+                box-shadow: var(--shadow-dark-small); 
 
                 &__title {
                     position: relative;
@@ -495,17 +615,17 @@
                     }
 
                     h3 {
-                        font-family: var(--font-primary);
-                        font-size: 3rem;
-                        color: var(--color-grey-light-1);
-                        text-shadow: .1rem .1rem .3rem rgba(0,0,0,0.7);
-                        text-align: center;
-
                         position: absolute;
                         top: 50%;
                         left: 50%;
                         transform: translate(-50%, -75%);
                         z-index: 10;
+
+                        font-family: var(--font-primary);
+                        font-size: 3rem;
+                        color: var(--color-grey-light-1);
+                        text-shadow: var(--text-shadow-small);
+                        text-align: center; 
                     }
                 }
 
@@ -587,14 +707,18 @@
     padding: 0.5rem 1.5rem; 
     width: 9rem;
 
-    background-color: var(--color-primary-light); 
-    color: var(--color-grey-light-1);
+    background-color: transparent;
+    color: var(--color-grey-dark-1);
     
     font-family: var(--font-primary); 
     font-size: 1.1rem; 
     font-weight: 600;
     text-transform: uppercase;
     white-space: nowrap;
+
+    @media only screen and (min-width: base.$bp-small) and (max-width: base.$bp-medium) {
+        font-size: .9rem; 
+    }
 }
 
 .item-container {
@@ -604,6 +728,11 @@
 
     width: 40rem;
     height: 55rem; 
+
+    @media only screen and (min-width: base.$bp-small) and (max-width: base.$bp-medium) {
+        width: 35rem;
+        height: 50rem; 
+    }
 
     &__item-image {
         position: relative;
@@ -632,31 +761,30 @@
     }
 
     &__macros {
-        font-size: 1.5rem;
-        font-style: italic;
-        padding: 1rem; 
-        gap: 0.5rem;
-        border-bottom: var(--line); 
-
         display: flex;
         align-items: center;
         justify-content: space-around;
         height: 10%;
-        
+        gap: 0.5rem;
+        padding: 1rem; 
+
+        font-style: italic;
+        border-bottom: var(--line); 
+
         &-carbs {
-            background-color: var(--color-macro-carbs);
+            border: 2px solid var(--color-macro-carbs);
         }
 
         &-protein {
-            background-color: var(--color-macro-protein);
+            border: 2px solid var(--color-macro-protein);
         }
 
         &-fats {
-            background-color: var(--color-macro-fats);
+            border: 2px solid var(--color-macro-fats);
         }
 
         &-calories {
-            background-color: var(--color-macro-calories);
+            border: 2px solid var(--color-macro-calories);
         }
     }
 
@@ -675,15 +803,19 @@
     }
 
     &__portion-container {
-        padding: 1rem 2.5rem;
-        font-size: 1.4rem;
-        color: var(--color-grey-dark-3);
-
-        display: flex;
-        flex-wrap: wrap; 
+        display: inline flex;
         align-items: center;
         justify-content: center;
         gap: 2rem;
+        height: 10%;
+        padding: 1rem 2.5rem;
+
+        font-size: 1.4rem;
+        color: var(--color-grey-dark-3);
+
+        @media only screen and (min-width: base.$bp-small) and (max-width: base.$bp-medium) {
+            font-size: 1.2rem;  
+        }
 
         &-option {
             display: flex;
@@ -712,7 +844,6 @@
             
             &__price {
                 position: relative;
-                font-size: 1.4rem;
                 font-weight: 600;
                 color: var(--color-primary-dark);
 
@@ -723,22 +854,22 @@
 
                 &-discount {
                     position: absolute;
-                    bottom: 1.25rem;
-                    left: 2rem;
+                    top: 1.3rem;
+                    left: 1.2rem;
 
-                    font-size: 1.7rem;
                     font-weight: 600;
-                    color: rgb(224, 23, 23);
+                    color: rgb(210, 13, 13);
                 }
             }
         }
     }
 
     &__cart-button {
-
         display: flex;
         justify-content: center;
+        align-items: center;
         padding: 1.2rem 0;
+        height: 15%;
 
         a {
             border-radius: 100px;
@@ -747,7 +878,7 @@
             color: var(--color-grey-light-1);
             background-color: var(--color-primary);
             text-transform: uppercase;
-            text-decoration: none;
+
             font-weight: 900;
             font-size: 1.5rem;
 
@@ -758,6 +889,12 @@
                 background-color: var(--color-primary-light);
                 transform: scale(1.1);
             }
+
+            &:active {
+                background-color: var(--color-primary-dark);
+                transform: scale(0.95);
+                box-shadow: var(--shadow-dark-very-small);
+            }
         }
     }
 }
@@ -766,21 +903,15 @@
 .card-form {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     gap: 1rem;
     padding: 1rem 2.5rem;
 
-    &__row-section {
-        display: flex;
-        gap: 1rem;
-    }
-
     &__form {
-        height: 80%;
         display: flex;
         flex-direction: column;
 
         &-section {
-            width: 100%;
             display: flex;
             flex-direction: column;
             width: 100%;
@@ -797,24 +928,21 @@
                 width: 100%;
                 font-size: 1.5rem;
                 padding: 1rem;
-                border: 1px solid #ddd;
+                border: 1px solid var(--color-grey-light-4);
                 border-radius: .8rem;
-                color: #333;
-                transition: border-color 0.3s ease, box-shadow 0.3s ease;
-
-                &:focus {
-                    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
-                    outline: none;
-                }
             }
         }
+    }
+
+    &__row-section {
+        display: flex;
+        gap: 1rem;
     }
 
     .main-button {
         font-family: var(--font-primary);
         font-size: 3rem;
         
-        height: 15%;
         margin: auto;
         padding: .3rem 5rem;
         
@@ -825,7 +953,6 @@
 
 .auth-form {
     width: 60rem;
-    height: auto;
 
     form {
         .main-button {
@@ -837,6 +964,10 @@
 .info-form {
     width: 40rem;
     height: 100%;
+
+    @media only screen and (max-width: base.$bp-medium) {
+        width: 90%;
+    }
 }
 
 #form-errors {
@@ -845,9 +976,8 @@
     align-items: center;
 
     font-size: 1.2rem;
-    letter-spacing: .1rem;
     font-weight: 500;
-    color: rgb(209, 8, 8);
+    color: rgb(211, 14, 14);
 }
 
 // CARDS
@@ -882,18 +1012,23 @@
     width: 60rem;
 
     color: var(--color-grey-dark-1);
-    box-shadow: 0 .6rem 1.2rem rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-dark-very-small);
+
+    @media only screen and (max-width: base.$bp-medium) {
+        width: 90%;
+    }
 
     &__total {
         display: inline-flex;
         justify-content: center;
         align-items: center;
-
-        height: 10%;
         width: 100%;
+        height: auto;
+        padding: .5rem 0;
 
         font-family: var(--font-primary);
-        font-size: 1.5rem;
+        font-size: 2rem;
+        font-weight: 600;
         text-transform: uppercase;
         letter-spacing: .2rem;
 
@@ -908,23 +1043,27 @@
     gap: 2rem;
     padding: 2rem;
     width: 95%;
-    height: 90%;
+    height: 85%;
     overflow-y: auto;
+    flex: 1;
 
     &__item {
         display: flex;
         justify-content: center;
         align-items: center;
         gap: 3rem;
-        font-size: 1.5rem;
-        height: 25%;
+        height: 20%;
         width: 100%;
 
         &-image {
             width: 8rem;
             height: 8rem;
-
             object-fit: cover;
+
+            @media only screen and (max-width: base.$bp-smallest) {
+                width: 6rem;
+                height: 6rem;
+            }
         }
 
         &-info {
@@ -932,19 +1071,28 @@
                 font-size: 1.8rem;
                 letter-spacing: .1rem;
                 font-weight: 500;
+
+                @media only screen and (max-width: base.$bp-small) {
+                    font-size: 1.6rem;
+                }
+
+                @media only screen and (max-width: base.$bp-smallest) {
+                    font-size: 1.1rem;
+                }
             }
 
             &-portion {
                 display: flex;
                 gap: .5rem;
+                font-size: 1.6rem;
                 font-style: italic;
 
-                &-size {
-                    
+                @media only screen and (max-width: base.$bp-small) {
+                    font-size: 1.5rem;
                 }
 
-                &-quantity {
-
+                @media only screen and (max-width: base.$bp-smallest) {
+                    font-size: 1rem;
                 }
             }
         }
@@ -953,12 +1101,16 @@
             margin-left: auto;
             font-size: 1.8rem;
             font-weight: 550;
+
+            @media only screen and (max-width: base.$bp-smallest) {
+                font-size: 1.4rem;
+            }
         }
     }    
 }
 
-// SUCCESSFULL PAYMENT
-.successfull-payment {
+// SUCCESSFULL & FAILED PAYMENT
+.payment-info {
     display: flex;
     flex-direction: column;
     width: auto;
@@ -968,10 +1120,10 @@
 
     &__title {
         font-family: var(--font-primary);
-        text-transform: uppercase;
         font-size: 4rem;
-        letter-spacing: .1rem;
         font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: .1rem;
     }
 
     &__description {
@@ -1003,8 +1155,11 @@
     font-weight: 600;
     color: var(--color-primary-dark);
 
+    @media only screen and (max-width: base.$bp-medium) {
+        padding: 2rem 0;
+    }
+
     &__order {
-        text-decoration: none;
         font-size: 2rem;
         letter-spacing: .1rem;
         color: inherit;
@@ -1038,14 +1193,20 @@
 
     overflow-y: hidden;
     padding-bottom: 1rem;
+
+    @media only screen and (max-width: base.$bp-medium) {
+        padding: 2rem 0;
+    }
 }
 
 // CONTACT
 .contact-info {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    height: 100%;
     gap: 2rem;
-
     padding: 2.5rem;
 
     &__section {
@@ -1055,13 +1216,21 @@
             font-size: 3.2rem;
             letter-spacing: .2rem;
             font-weight: 500;
+
+            @media only screen and (max-width: base.$bp-smallest) {
+                font-size: 2.6rem;
+            }
         }
 
         &-description {
             font-size: 1.8rem;
+            overflow: hidden;
+
+            @media only screen and (max-width: base.$bp-smallest) {
+                font-size: 1.4rem;
+            }
 
             span {
-
                 a {
                     color: var(--color-primary-dark);
                     font-weight: 700;

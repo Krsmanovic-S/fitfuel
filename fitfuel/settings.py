@@ -10,9 +10,11 @@ SECRET_KEY = 'django-insecure-k3op@pp9#ax$natj2_ik%g)8%w#^)=mw9ht&)wz2lz9egi+7+s
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '127.0.0.1',      
-    'localhost',   
-    'bdfd-109-245-96-221.ngrok-free.app',
+    '*'
+    # '127.0.0.1',
+    # 'localhost',
+    # '192.168.1.1',   
+    # 'bdfd-109-245-96-221.ngrok-free.app',
 ]
 
 

@@ -22,22 +22,31 @@
 
     --line: 1px solid var(--color-grey-light-2);
 
+    --shadow-dark-very-small: 0 .5rem 1.5rem rgba(0, 0, 0, .3);
     --shadow-dark-small: 0 1rem 3rem rgba(0, 0, 0, .3);
     --shadow-dark: 0 2rem 4rem rgba(0, 0, 0, .3);
     --shadow-dark-large: 0 1rem 6rem rgba(0, 0, 0, .3);
     
     --shadow-light: 0 2rem 5rem rgba(0, 0, 0, .06);
+
+    --text-shadow-very-small: .1rem .1rem .2rem rgba(0, 0 ,0 , 0.5);
+    --text-shadow-small: .3rem .3rem .3rem rgba(0, 0, 0, 0.5);
+    --text-shadow: .5rem .5rem .5rem rgba(0, 0, 0, 0.5);
 }
 
-$bp-largest: 75em; // 1200px 
-$bp-large: 68.75em; // 1100px
-$bp-medium: 56.25em; // 900px
-$bp-small: 37.5em; // 600px
-$bp-smallest: 31.25em; // 500px
+$bp-largest: 1350px;
+$bp-large: 1100px;
+$bp-medium: 930px; 
+$bp-small: 760px;
+$bp-smallest: 510px;
 
 * {
     margin:0;
     padding: 0;
+
+    & > a {
+        text-decoration: none;
+    }
 }
 
 *, *::after, *::before {

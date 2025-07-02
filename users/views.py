@@ -1,10 +1,12 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
 from .forms import RegisterForm, LoginForm, UserEditForm
 from food.models import Order, MenuItemPortion
 
 
+@csrf_exempt
 def register_view(request):
     if request.method == 'POST':
         register_form = RegisterForm(request.POST, request=request)
@@ -19,6 +21,7 @@ def register_view(request):
     return render(request, 'users/register.html', {'register_form': register_form})
 
 
+@csrf_exempt
 def login_view(request):
     if request.method == 'POST':
         login_form = LoginForm(request.POST, request=request)
@@ -40,6 +43,7 @@ def logout_view(request):
     
 
 @login_required
+@csrf_exempt
 def profile(request):
     if request.method == 'POST':
         user_edit_form = UserEditForm(request.POST, instance=request.user)
@@ -88,6 +92,4 @@ def order_view(request, id):
         
     return render(request, 'users/order_view.html', {'order': order, 'context_items': context_items})
         
-    
-    
     

@@ -3,76 +3,73 @@
 {% block content %}
 {% include 'header.html' %}
 
-<div class="page-container">
+<div class="page-container decal-background">
     <div id="totalCarbs" hidden>{{ all_macros.carbs }}</div>
     <div id="totalProtein" hidden>{{ all_macros.protein }}</div>
     <div id="totalFats" hidden>{{ all_macros.fats }}</div>
 
-    <div class="straight-card">
-        <form class="card-form info-form" method="POST" action="">
-            <h1 class="card-title">Edit Profile</h1>
-            {% csrf_token %}
-            <div class="card-form__form">
-                <div class="card-form__row-section">
-                    <div class="card-form__form-section">
-                        <label>First Name</label>
-                        <div class="card-form__form-section-input">{{ user_edit_form.first_name }}</div> 
-                    </div>
-                    <div class="card-form__form-section">
-                        <label>Last Name</label>
-                        <div class="card-form__form-section-input">{{ user_edit_form.last_name }}</div> 
-                    </div>
+    <form class="card-form info-form straight-card" method="POST" action="">
+        <h1 class="card-title">Edit Profile</h1>
+        {% csrf_token %}
+        <div class="card-form__form">
+            <div class="card-form__row-section">
+                <div class="card-form__form-section">
+                    <label>First Name</label>
+                    <div class="card-form__form-section-input">{{ user_edit_form.first_name }}</div> 
                 </div>
                 <div class="card-form__form-section">
-                    <label>Phone</label>
-                    <div class="card-form__form-section-input">{{ user_edit_form.phone }}</div> 
+                    <label>Last Name</label>
+                    <div class="card-form__form-section-input">{{ user_edit_form.last_name }}</div> 
                 </div>
-                <div class="card-form__form-section">
-                    <label>Address</label>
-                    <div class="card-form__form-section-input">{{ user_edit_form.address }}</div> 
-                </div>
-                <div class="card-form__form-section">
-                    <label>City</label>
-                    <div class="card-form__form-section-input">{{ user_edit_form.city }}</div> 
-                </div>
-                <div class="card-form__form-section">
-                    <label>Zipcode</label>
-                    <div class="card-form__form-section-input">{{ user_edit_form.zip_code }}</div> 
-                </div>
-                <div id="form-errors"></div>
             </div>
+            <div class="card-form__form-section">
+                <label>Phone</label>
+                <div class="card-form__form-section-input">{{ user_edit_form.phone }}</div> 
+            </div>
+            <div class="card-form__form-section">
+                <label>Address</label>
+                <div class="card-form__form-section-input">{{ user_edit_form.address }}</div> 
+            </div>
+            <div class="card-form__form-section">
+                <label>City</label>
+                <div class="card-form__form-section-input">{{ user_edit_form.city }}</div> 
+            </div>
+            <div class="card-form__form-section">
+                <label>Zipcode</label>
+                <div class="card-form__form-section-input">{{ user_edit_form.zip_code }}</div> 
+            </div>
+            <div id="form-errors"></div>
+        </div>
 
-            <button class="main-button" type="submit">Save</button>
-        </form>
-    </div>
+        <button class="main-button" type="submit">Save</button>
+    </form>
     
     <div class="profile-info">
         <div class="profile-details straight-card">
             <div class="card-title">Your Orders</div>
             {% if past_orders %}
-                <div class="past-orders">
-                    {% for order in past_orders %}
-                    <a href="{% url 'order_view' id=order.id %}" class="past-orders__order round-card">
-                        <p>{{ order.order_date|date:"M d, Y" }} </p>   
-                        <p>Total: {{ order.total_price }}€</p>
-                    </a>
-                    {% endfor %}
-                </div>
+            <div class="past-orders">
+                {% for order in past_orders %}
+                <a href="{% url 'order_view' id=order.id %}" class="past-orders__order round-card">
+                    <p>{{ order.order_date|date:"M d, Y" }} </p>   
+                    <p>Total: {{ order.total_price }}€</p>
+                </a>
+                {% endfor %}
+            </div>
             {% else %}
-                <p class="no-orders-message">You have no past orders.</p>
+            <p class="no-orders-message">You have no past orders.</p>
             {% endif %}
-            </div>
+        </div>
 
-            <div class="profile-details straight-card">
-                <div class="card-title">Macro Breakdown</div>
-                {% if past_orders %}
-                <div class="macro-graph">
-                    <canvas id="macroChart"></canvas>
-                </div>
-                {% else %}
-                <p class="no-orders-message">Nothing to show via chart.</p>
-                {% endif %}
+        <div class="profile-details straight-card">
+            <div class="card-title">Macro Breakdown</div>
+            {% if past_orders %}
+            <div class="macro-graph">
+                <canvas id="macroChart"></canvas>
             </div>
+            {% else %}
+            <p class="no-orders-message">Nothing to show via chart.</p>
+            {% endif %}
         </div>
     </div>
 </div>

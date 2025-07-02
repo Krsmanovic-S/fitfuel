@@ -1,14 +1,16 @@
-// HEADER
+@use 'base';
+
+// HEADER & FOOTER
 .header, .footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 10vh;
+    width: 100%;
 
     background-image: linear-gradient(to right bottom, var(--color-primary-light), var(--color-primary-dark));
     background-size: cover;
     background-repeat: no-repeat;
-    
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .header {
@@ -19,12 +21,21 @@
     border-top: var(--line);
 }
 
+// MENU PAGE
 .menu-container {
     padding: 5rem;
 
     background-image: linear-gradient(to right bottom, var(--color-grey-light-1), var(--color-grey-light-2));
     background-size: cover;
     background-repeat: no-repeat;
+
+    @media only screen and (max-width: base.$bp-medium) {
+        padding: 2rem;
+    }
+
+    @media only screen and (max-width: base.$bp-small) {
+        padding: 1rem;
+    }
 }
 
 .menu-item-grid {
@@ -34,15 +45,29 @@
     justify-items: center;
     row-gap: 5rem;
     margin: 3rem 0;
+
+    @media only screen and (max-width: base.$bp-largest) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media only screen and (max-width: base.$bp-medium) {
+        row-gap: 3rem;
+    }
+
+    @media only screen and (max-width: base.$bp-small) {
+        grid-template-columns: 1fr;
+    }
 }
 
-.page-container {
+// FORM-BASED PAGES
+.auth-form-container {
     display: flex;
     align-items: center;
     justify-content: center;
     height: 80vh;
-    gap: 3rem;
+}
 
+.decal-background {
     &::before {
         content: '';
         position: absolute;
@@ -60,15 +85,38 @@
     }
 }
 
+.page-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+    width: 100%;
+    gap: 3rem;
+
+    @media only screen and (max-width: base.$bp-medium) {
+        flex-direction: column;
+        height: 100%;
+        padding: 2rem 0;
+    }
+}
+
 .profile-info {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-
     height: 90%;
     width: 50rem;
+
+    @media only screen and (max-width: base.$bp-medium) {
+        flex-direction: column;
+        gap: 3rem;
+        height: 100%;
+        width: 90%;
+        padding: 2rem 0;
+    }
 }
 
+// CONTACT & ORDER VIEW
 .contact {
     width: 70rem;
     max-width: 90%;
@@ -76,4 +124,8 @@
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+}
+
+.order-view {
+    height: 80vh;
 }

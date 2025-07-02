@@ -3,8 +3,8 @@
 {% block content %}
 {% include 'header.html' %}
 
-<div class="page-container">
-    <div class="straight-card contact">
+<div class="page-container decal-background order-view">
+    <div class="order straight-card">
         <h1 class="card-title">Order #{{ order.id }}</h1>
         <div class="cart-list">
             {% for item in context_items %}
@@ -21,8 +21,8 @@
             </div>
             {% endfor %}
 
-            <div class="order__total">Total: {{ order.total_price }}€</div>
         </div>
+        <div class="order__total">Total: {{ order.total_price }}€</div>
     </div>
 </div>
 
