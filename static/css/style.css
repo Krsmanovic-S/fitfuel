@@ -1212,8 +1212,9 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 1rem;
+  gap: 2rem;
   height: 100%;
+  overflow-x: auto;
   font-weight: 600;
   color: var(--color-primary-dark);
 }
@@ -1227,6 +1228,7 @@ body {
   letter-spacing: 0.1rem;
   color: inherit;
   padding: 3rem;
+  flex-shrink: 0;
   transform: translateY(0rem);
   transition: all 0.1 ease;
 }

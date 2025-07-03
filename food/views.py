@@ -1,12 +1,12 @@
 from django.shortcuts import render
-from .models import MenuItem, MenuItemCategory, MenuItemPortion, Order
 from django.views.decorators.csrf import csrf_exempt
-import json, stripe
 from django.http import JsonResponse, HttpResponse  
 from django.conf import settings
 from django.urls import reverse
-from .forms import CheckoutForm
 from django.db import transaction
+from .models import MenuItem, MenuItemCategory, MenuItemPortion, Order
+from .forms import CheckoutForm
+import json, stripe
 
 
 def index(request):
@@ -23,7 +23,6 @@ def contact(request):
     return render(request, 'food/contact.html')
 
 
-@csrf_exempt 
 def update_session_cart(request):
     try:
         raw_body = request.body.decode('utf-8')
@@ -106,7 +105,6 @@ def checkout_page(request):
     })
 
 
-@csrf_exempt
 def create_checkout_session(request):
     request_data = json.loads(request.body)
     

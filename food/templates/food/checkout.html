@@ -105,8 +105,7 @@ checkoutButton.addEventListener('click', function() {
     fetch("{% url 'api_checkout_session' %}", {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': '{{ csrf_token }}'
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify(formData)
     }).then(function(response) {

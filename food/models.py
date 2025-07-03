@@ -1,6 +1,5 @@
 from django.db import models
 from django.core.validators import MinValueValidator
-from users.models import CustomUser
 import math 
 
 

@@ -1,7 +1,9 @@
 {% extends 'base.html ' %}
 {% load static %}
 {% block content %}
-<header class="header">    
+<header class="header">
+    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+    
     <div class="header-brand">
         <img class="logo-img" src="{% static 'img/logo.png' %}" alt="Fit Fuel Logo">
         <a href="{% url 'index' %}" class="header-brand__name">Fit-Fuel</a>
@@ -52,6 +54,7 @@
 let cart = {}; 
 let cartPopoverInstance; 
 let cartNumber;
+let csrftoken; 
 
 // Update all Macros based on selected Portion
 function updateItemMacros(selectedRadio) {
@@ -198,7 +201,7 @@ async function proceedToCheckout(event) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                // 'X-CSRFToken': csrftoken
+                'X-CSRFToken': csrftoken
             },
             body: JSON.stringify({ cart: cartData })
         });
@@ -239,6 +242,9 @@ document.addEventListener('DOMContentLoaded', function() {
         console.error("Error parsing cart from localStorage:", e);
         cart = {};
     }
+
+    // CSRF Token is in the base.html meta tag
+    csrftoken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
  
     const cartPopoverElement = document.getElementById('cart');
     cartPopoverInstance = bootstrap.Popover.getInstance(cartPopoverElement);
