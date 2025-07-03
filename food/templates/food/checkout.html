@@ -102,10 +102,14 @@ checkoutButton.addEventListener('click', function() {
     checkoutButton.disabled = true;
     checkoutButton.textContent = 'Processing';
 
+    // CSRF Token is in the base.html meta tag
+    const csrftoken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
     fetch("{% url 'api_checkout_session' %}", {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken
         },
         body: JSON.stringify(formData)
     }).then(function(response) {
