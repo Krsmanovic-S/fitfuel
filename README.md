@@ -12,6 +12,12 @@
   </p>
 </div>
 
+<div align="center">
+  <h3>🛠 Tech Stack</h3>
+  <img src="static/img/tech/python_logo.png"  width="32" height="32"> <img src="static/img/tech/django_logo.png"  width="32" height="32"> <img src="static/img/tech/sass_logo.png"  width="32" height="32">
+  <img src="static/img/tech/html_logo.png"  width="32" height="32">        <img src="static/img/tech/css_logo.png"  width="32" height="32">        <img src="static/img/tech/javascript_logo.png"  width="32" height="32">
+</div>
+
 <h2>Website Details</h2>
 
 The primary focus of the website is in the menu manipulation and payment processing. Menu items can be edited in the Django
@@ -53,7 +59,7 @@ a cart will be remembered for any specific user until they modify it or make an 
 
 <h2>🌐 Frontend</h2>
 
-The frontend is built by HTML, JS and custom CSS. The styling is powered by **SAAS**, which means the main styles.css files is generated dynamically and compressed to reduce its size.
+The frontend is built by HTML, JS and custom CSS. The styling is powered by **SASS**, which means the main styles.css files is generated dynamically and compressed to reduce its size.
 Website is optimized for all devices as well using custom media queries. The structure of the layout is done using **'Flexbox'** and **'CSS Grid'**, two most modern ways to create designs.
 HTML is structured using the BEM notation, making it easy to read and expand. CSS is a bit complex, I wanted to show what I know when it comes to styling as well as proper structuring.
 During development, I used the 'live-server' extension to speed up my workflow on the frontend part.
