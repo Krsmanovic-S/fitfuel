@@ -118,7 +118,7 @@ def create_checkout_session(request):
     user_email = form.cleaned_data['email']
     user_phone = form.cleaned_data['phone']
     user_address = form.cleaned_data['address']
-    user_zipcode = form.cleaned_data['zipcode']
+    user_zipcode = form.cleaned_data['zip_code']
 
     current_cart = request.session.get('cart', {})
     line_items = []

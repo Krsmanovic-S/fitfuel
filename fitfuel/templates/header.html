@@ -190,7 +190,7 @@ async function proceedToCheckout(event) {
     const checkoutButton = event.target.closest('#checkout-button');
     if (checkoutButton) {
         checkoutButton.disabled = true;
-        checkoutButton.textContent = 'Processing...';
+        checkoutButton.textContent = 'Loading';
     }
 
     try {

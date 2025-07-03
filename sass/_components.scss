@@ -42,10 +42,6 @@
 
 .logo-img {
     height: 4.5rem; 
-
-    @media only screen and (max-width: base.$bp-smallest) {
-        height: 3.2rem; 
-    }
 }
 
 .user-nav {
@@ -427,7 +423,7 @@
     text-align: center;
     letter-spacing: 1rem;
 
-    margin-bottom: 4rem;
+    margin-bottom: 2rem;
     
     color: var(--color-grey-dark-1);      
 
@@ -541,7 +537,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 3rem;
+    gap: 1rem;
     padding: 2rem 3rem;
 
     @media only screen and (max-width: base.$bp-smallest) {

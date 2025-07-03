@@ -30,23 +30,23 @@
         <div class="card-form__form">
             <div class="card-form__form-section">
                 <label>Email</label>
-                <div for="id_email" class="card-form__form-section-input">{{ checkout_form.email }}</div> 
+                <div id="id_email" class="card-form__form-section-input">{{ checkout_form.email }}</div> 
             </div>
             <div class="card-form__form-section">
                 <label>Phone</label>
-                <div for="id_phone" class="card-form__form-section-input">{{ checkout_form.phone }}</div> 
+                <div id="id_phone" class="card-form__form-section-input">{{ checkout_form.phone }}</div> 
             </div>
             <div class="card-form__form-section">
                 <label>City</label>
-                <div for="id_city" class="card-form__form-section-input">{{ checkout_form.city }}</div> 
+                <div id="id_city" class="card-form__form-section-input">{{ checkout_form.city }}</div> 
             </div>
             <div class="card-form__form-section">
                 <label>Address</label>
-                <div for="id_address" class="card-form__form-section-input">{{ checkout_form.address }}</div> 
+                <div id="id_address" class="card-form__form-section-input">{{ checkout_form.address }}</div> 
             </div>
             <div class="card-form__form-section">
                 <label>Zipcode</label>
-                <div for="id_zipcode" class="card-form__form-section-input">{{ checkout_form.zip_code }}</div> 
+                <div id="id_zipcode" class="card-form__form-section-input">{{ checkout_form.zip_code }}</div> 
             </div>
             <div id="form-errors"></div>
         </div>
@@ -71,23 +71,24 @@ checkoutButton.addEventListener('click', function() {
     event.preventDefault();
     formErrorsDiv.innerHTML = ''; 
 
-    var emailInput = document.getElementById('id_email');
-    var phoneInput = document.getElementById('id_phone');
-    var addressInput = document.getElementById('id_address');
-    var cityInput = document.getElementById('id_city');
-    var zipcodeInput = document.getElementById('id_zipcode');
+    var emailInput = document.getElementById('id_email').querySelector('input');
+    var phoneInput = document.getElementById('id_phone').querySelector('input');
+    var addressInput = document.getElementById('id_address').querySelector('input');
+    var cityInput = document.getElementById('id_city').querySelector('input');
+    var zipcodeInput = document.getElementById('id_zipcode').querySelector('input');
 
     var formData = {
         email: emailInput.value.trim(),
         phone: phoneInput.value.trim(),
         address: addressInput.value.trim(),
-        zipcode: zipcodeInput.value.trim()
+        city: cityInput.value.trim(),
+        zip_code: zipcodeInput.value.trim()
     };
 
     // --- Client-side Validation ---
     var errors = [];
 
-    if (!formData.email || !formData.phone || !formData.city || !formData.address || !formData.zipcode) {
+    if (!formData.email || !formData.phone || !formData.city || !formData.address || !formData.zip_code) {
         errors.push('All fields are required.');
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
         errors.push('Please enter a valid email address.');
