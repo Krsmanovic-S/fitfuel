@@ -50,6 +50,8 @@ Users can make accounts and save their personal information for future orders. O
 depicting the macros they have taken in from the food they ordered from the website. Users can order without an account as well, however their information isn't stored
 in this case. All of this is built in Django using a Custom User model and all of the functionality lies in the 'users' app.
 
+![image](https://github.com/user-attachments/assets/99c70dbe-1b50-409c-9341-f767f48f86c8)
+
 <h2>🛒 Cart Feature</h2>
 
 I have implemented a pop-up cart into the website, which customers can use to quickly view what they added as well as remove stuff that they do not want in the cart. The cart
