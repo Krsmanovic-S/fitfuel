@@ -26,7 +26,7 @@ administration panel via the superuser account:
 ![image](https://github.com/user-attachments/assets/a5cff7ba-7d20-4789-96a1-1287dcf491d5)
 
 If you want to check this out yourself, you can log in as the superuser by using the following credentials:
-- Username: **superuser**
+- Email: **superuser@gmail.com**
 - Password: **superuser**
 
 The admin panel allows us to easily create new categories for items, adjust their details, create different portions and provide a discount.
