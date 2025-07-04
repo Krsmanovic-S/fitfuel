@@ -201,8 +201,9 @@ async function proceedToCheckout(event) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRFToken': csrftoken
+                'X-CSRFToken': csrftoken,
             },
+            credentials: 'same-origin',
             body: JSON.stringify({ cart: cartData })
         });
 
