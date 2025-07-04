@@ -196,3 +196,4 @@ cython_debug/
 
 # SaaS Files
 /node_modules
+*.load

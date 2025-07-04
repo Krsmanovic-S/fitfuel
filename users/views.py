@@ -9,7 +9,7 @@ from food.models import Order, MenuItemPortion
 @csrf_exempt
 def register_view(request):
     if request.method == 'POST':
-        register_form = RegisterForm(request.POST, request=request)
+        register_form = RegisterForm(request.POST)
         if register_form.is_valid():
             new_user = register_form.save(commit=False)
             new_user.set_password(register_form.cleaned_data['password'])            
@@ -24,7 +24,7 @@ def register_view(request):
 @csrf_exempt
 def login_view(request):
     if request.method == 'POST':
-        login_form = LoginForm(request.POST, request=request)
+        login_form = LoginForm(request.POST)
         if login_form.is_valid():
             data = login_form.cleaned_data
             user = authenticate(request=request, username=data['email'], password=data['password'])
