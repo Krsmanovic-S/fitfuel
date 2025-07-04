@@ -137,4 +137,4 @@ STRIPE_SECRET_KEY = 'sk_test_51RWGwMEDxvgZLknnLgHS278LMzNi5Vo0vAUoXw3pCciGZv7N9K
 STRIPE_WEBHOOK_SECRET = 'whsec_E8BNScmGAp7X3jCWMPruxwjvEjsBBABA'
 
 # WHITELIST
-CSRF_TRUSTED_ORIGINS = ['http://localhost:3000']
+CSRF_TRUSTED_ORIGINS = ['http://localhost:3000', 'https://www.fit-fuel.site']
