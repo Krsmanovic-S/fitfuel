@@ -52,7 +52,8 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            BASE_DIR / 'fitfuel' / 'templates',    
+            BASE_DIR / 'templates',
+            BASE_DIR / 'fitfuel' / 'templates'
         ],
         'APP_DIRS': True,
         'OPTIONS': {
