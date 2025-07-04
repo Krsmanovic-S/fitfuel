@@ -1,8 +1,8 @@
-{% extends 'base.html' %}
+{% extends 'food/base.html' %}
 {% load static %}
 {% block title %}FitFuel - Checkout{% endblock %}
 {% block content %}
-{% include 'header.html' %}
+{% include 'food/header.html' %}
 
 <div class="page-container decal-background">
     <div class="order straight-card">
@@ -55,7 +55,7 @@
     </form>
 </div>
 
-{% include 'footer.html' %}
+{% include 'food/footer.html' %}
 
 <!--Stripe JS CDN-->
 <script src="https://js.stripe.com/basil/stripe.js"></script>

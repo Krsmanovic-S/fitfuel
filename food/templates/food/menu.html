@@ -1,8 +1,8 @@
-{% extends 'base.html' %}
+{% extends 'food/base.html' %}
 {% load static %}
 {% block title %}FitFuel - Menu{% endblock %}
 {% block content %}
-{% include 'header.html' %}
+{% include 'food/header.html' %}
 
 <div class="menu-container">
     {% for category in menu_categories %}
@@ -81,5 +81,5 @@
     {% endfor %}
 </div>
 
-{% include 'footer.html' %}
+{% include 'food/footer.html' %}
 {% endblock %}

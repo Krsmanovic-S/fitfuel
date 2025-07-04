@@ -1,7 +1,7 @@
-{% extends 'base.html' %}
+{% extends 'food/base.html' %}
 {% block title %}FitFuel - Edit Profile{% endblock %}
 {% block content %}
-{% include 'header.html' %}
+{% include 'food/header.html' %}
 
 <div class="page-container decal-background">
     <div id="totalCarbs" hidden>{{ all_macros.carbs }}</div>
@@ -74,7 +74,7 @@
     </div>
 </div>
 
-{% include 'footer.html' %}
+{% include 'food/footer.html' %}
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 

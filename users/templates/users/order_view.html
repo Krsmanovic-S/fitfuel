@@ -1,7 +1,7 @@
-{% extends 'base.html' %}
+{% extends 'food/base.html' %}
 {% block title %}FitFuel - Order #{{ order.id }} {% endblock %}
 {% block content %}
-{% include 'header.html' %}
+{% include 'food/header.html' %}
 
 <div class="page-container decal-background order-view">
     <div class="order straight-card">
@@ -26,5 +26,5 @@
     </div>
 </div>
 
-{% include 'footer.html' %}
+{% include 'food/footer.html' %}
 {% endblock %}
