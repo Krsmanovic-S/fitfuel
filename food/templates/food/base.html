@@ -33,5 +33,10 @@
 
     <!-- JQuery -->    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <!-- Setting CSRF into Cookies -->    
+    <script>
+        document.cookie = "csrftoken={{ csrf_token }}; path=/";
+    </script>
 </body>
 </html>

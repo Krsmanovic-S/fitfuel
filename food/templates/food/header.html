@@ -203,7 +203,6 @@ async function proceedToCheckout(event) {
                 'Content-Type': 'application/json',
                 'X-CSRFToken': csrftoken,
             },
-            credentials: 'same-origin',
             body: JSON.stringify({ cart: cartData })
         });
 
