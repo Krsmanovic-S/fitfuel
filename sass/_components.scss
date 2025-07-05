@@ -13,6 +13,15 @@
         gap: 1rem;
     }
 
+    @media only screen and (max-width: base.$bp-medium) {
+        gap: .5rem;
+    }
+
+    @media only screen and (max-width: base.$bp-small) {
+        left: 0%;
+        gap: 0rem;
+    }
+
     &__name {
         text-transform: uppercase;
         font-size: 4rem;
@@ -32,6 +41,10 @@
         
         @media only screen and (max-width: base.$bp-small) {
             font-size: 2.5rem; 
+        }
+
+        @media only screen and (max-width: base.$bp-smallest) {
+            font-size: 2.3rem; 
         }
 
         &:hover {
@@ -68,6 +81,14 @@
     position: absolute;
     right: 3%;
     gap: 2rem;
+
+    @media only screen and (max-width: base.$bp-small) {
+        gap: 1.5rem;
+    }
+
+    @media only screen and (max-width: base.$bp-smallest) {
+        gap: 1.25rem;
+    }
 
     &__cart {
         display: inline-flex;
@@ -153,6 +174,11 @@
         font-weight: 700;
     }
 
+    &:active {
+        transform: scale(0.96);
+        box-shadow: inset 0 .3rem .5rem rgba(0, 0, 0, 0.3);
+    }
+
     @media only screen and (max-width: base.$bp-largest) {
         font-size: 2rem;
         width: 18rem;
@@ -192,6 +218,11 @@
         text-shadow: var(--text-shadow-small);
         box-shadow: var(--shadow-dark-large);
         transform: translateY(-.5rem);
+    }
+
+    &:active {
+        transform: translateY(2px);
+        box-shadow: inset 0 .4rem .7rem rgba(0, 0, 0, 0.3);
     }
 }
 
@@ -491,6 +522,7 @@
 
                 h3 {
                     font-size: 2rem;
+                    font-weight: 600;
                     letter-spacing: .7rem;
                     text-transform: uppercase;
                     color: var(--color-grey-dark-2);
@@ -517,6 +549,7 @@
 
                 p {
                     font-size: 1.4rem;
+                    font-weight: 500;
                     color: var(--color-grey-dark-3);
 
                     @media only screen and (max-width: base.$bp-large) {
@@ -619,7 +652,8 @@
 
                         font-family: var(--font-primary);
                         font-size: 3rem;
-                        color: var(--color-grey-light-1);
+                        font-weight: 600;
+                        color: var(--color-grey-light-3);
                         text-shadow: var(--text-shadow-small);
                         text-align: center; 
                     }
@@ -628,6 +662,7 @@
                 p {
                     padding: 1rem 2.5rem;
                     font-size: 1.4rem;
+                    font-weight: 500;
                     color: var(--color-grey-dark-3);
                     flex-grow: 1;
 

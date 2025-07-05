@@ -197,3 +197,4 @@ cython_debug/
 # SaaS Files
 /node_modules
 *.load
+backup_db.sqlite3
