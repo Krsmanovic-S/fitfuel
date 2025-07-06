@@ -59,12 +59,13 @@
     }
 }
 
-// FORM-BASED PAGES
-.auth-form-container {
+// PAGE CONTAINERS
+.viewport-height-container {
     display: flex;
     align-items: center;
     justify-content: center;
     height: 80vh;
+    width: 100%;
 }
 
 .decal-background {

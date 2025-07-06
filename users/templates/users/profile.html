@@ -46,7 +46,7 @@
     
     <div class="profile-info">
         <div class="profile-details straight-card">
-            <div class="card-title">Your Orders</div>
+            <div class="card-title small-title">Your Orders</div>
             {% if past_orders %}
             <div class="past-orders">
                 {% for order in past_orders %}
@@ -62,7 +62,7 @@
         </div>
 
         <div class="profile-details straight-card">
-            <div class="card-title">Macro Breakdown</div>
+            <div class="card-title small-title">Macro Breakdown</div>
             {% if past_orders %}
             <div class="macro-graph">
                 <canvas id="macroChart"></canvas>

@@ -115,11 +115,12 @@ body {
   }
 }
 
-.auth-form-container {
+.viewport-height-container {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 80vh;
+  width: 100%;
 }
 
 .decal-background::before {
@@ -1219,23 +1220,60 @@ body {
 .payment-info {
   display: flex;
   flex-direction: column;
-  width: auto;
+  width: 80rem;
   height: auto;
   gap: 3rem;
   padding: 2.5rem;
+}
+@media only screen and (max-width: 930px) {
+  .payment-info {
+    width: 90%;
+  }
 }
 .payment-info__title {
   font-family: var(--font-primary);
   font-size: 4rem;
   font-weight: 500;
   text-transform: uppercase;
+  text-align: center;
   letter-spacing: 0.1rem;
+}
+@media only screen and (max-width: 1100px) {
+  .payment-info__title {
+    font-size: 3.5rem;
+  }
+}
+@media only screen and (max-width: 930px) {
+  .payment-info__title {
+    font-size: 3rem;
+  }
+}
+@media only screen and (max-width: 510px) {
+  .payment-info__title {
+    font-size: 2.5rem;
+  }
 }
 .payment-info__description {
   display: inline flex;
   align-items: center;
   justify-content: center;
+  text-align: center;
   font-size: 2.5rem;
+}
+@media only screen and (max-width: 1100px) {
+  .payment-info__description {
+    font-size: 2rem;
+  }
+}
+@media only screen and (max-width: 930px) {
+  .payment-info__description {
+    font-size: 1.8rem;
+  }
+}
+@media only screen and (max-width: 510px) {
+  .payment-info__description {
+    font-size: 1.6rem;
+  }
 }
 
 .profile-details {
@@ -1276,13 +1314,25 @@ body {
   transform: translateY(-0.5rem);
 }
 
+@media only screen and (max-width: 510px) {
+  .small-title {
+    font-size: 2rem !important;
+  }
+}
+
 .no-orders-message {
   display: inline flex;
   align-items: center;
   justify-content: center;
   height: 100%;
   font-size: 3.5rem;
+  text-align: center;
   color: inherit;
+}
+@media only screen and (max-width: 510px) {
+  .no-orders-message {
+    font-size: 1.8rem;
+  }
 }
 
 .macro-graph {
@@ -1315,7 +1365,7 @@ body {
 }
 @media only screen and (max-width: 510px) {
   .contact-info__section-title {
-    font-size: 2.6rem;
+    font-size: 2.8rem;
   }
 }
 .contact-info__section-description {
@@ -1324,7 +1374,7 @@ body {
 }
 @media only screen and (max-width: 510px) {
   .contact-info__section-description {
-    font-size: 1.4rem;
+    font-size: 1.6rem;
   }
 }
 .contact-info__section-description span a {

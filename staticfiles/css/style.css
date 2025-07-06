@@ -115,7 +115,7 @@ body {
   }
 }
 
-.auth-form-container {
+.viewport-height-container {
   display: flex;
   align-items: center;
   justify-content: center;
