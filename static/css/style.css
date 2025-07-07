@@ -895,13 +895,13 @@ body {
   width: 40rem;
   height: 55rem;
 }
-@media only screen and (min-width: 760px) and (max-width: 930px) {
+@media only screen and (max-width: 930px) {
   .item-container {
     width: 35rem;
     height: 50rem;
   }
 }
-@media only screen and (max-width: 510px) {
+@media only screen and (max-width: 760px) {
   .item-container {
     height: 45rem;
     width: 100%;
@@ -929,7 +929,7 @@ body {
   color: var(--color-grey-dark-1);
   border-bottom: var(--line);
 }
-@media only screen and (max-width: 510px) {
+@media only screen and (max-width: 760px) {
   .item-container__title {
     height: auto;
   }

@@ -770,12 +770,12 @@
     width: 40rem;
     height: 55rem; 
 
-    @media only screen and (min-width: base.$bp-small) and (max-width: base.$bp-medium) {
+    @media only screen and (max-width: base.$bp-medium) {
         width: 35rem;
         height: 50rem; 
     }
 
-    @media only screen and (max-width: base.$bp-smallest) {
+    @media only screen and (max-width: base.$bp-small) {
         height: 45rem;
         width: 100%;
     }
@@ -805,7 +805,7 @@
         color: var(--color-grey-dark-1);
         border-bottom: var(--line);
 
-        @media only screen and (max-width: base.$bp-smallest) {
+        @media only screen and (max-width: base.$bp-small) {
             height: auto;
         }
     }
