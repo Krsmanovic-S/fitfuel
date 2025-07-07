@@ -707,6 +707,10 @@
                 background-image: linear-gradient(to right bottom, rgba(139, 195, 75, 1), rgba(56, 142, 60, 1));
                 opacity: 1;
             }
+
+            @media only screen and (max-width: base.$bp-smallest) {
+                padding: 0 1rem;
+            }
         }
 
         .category_badge {
@@ -750,6 +754,12 @@
     @media only screen and (min-width: base.$bp-small) and (max-width: base.$bp-medium) {
         font-size: .9rem; 
     }
+
+    @media only screen and (max-width: base.$bp-smallest) {
+        width: 8rem;
+        font-size: .85rem;
+        padding: 0.5rem 1.2rem; 
+    }
 }
 
 .item-container {
@@ -763,6 +773,11 @@
     @media only screen and (min-width: base.$bp-small) and (max-width: base.$bp-medium) {
         width: 35rem;
         height: 50rem; 
+    }
+
+    @media only screen and (max-width: base.$bp-smallest) {
+        height: 45rem;
+        width: 100%;
     }
 
     &__item-image {
@@ -789,6 +804,10 @@
         padding: 1rem .3rem;
         color: var(--color-grey-dark-1);
         border-bottom: var(--line);
+
+        @media only screen and (max-width: base.$bp-smallest) {
+            height: auto;
+        }
     }
 
     &__macros {
@@ -796,8 +815,12 @@
         align-items: center;
         justify-content: space-around;
         height: 10%;
-        gap: 0.5rem;
         padding: 1rem; 
+
+        @media only screen and (max-width: base.$bp-smallest) {
+            justify-content: space-between;
+            padding: 0 .5rem;
+        }
 
         font-style: italic;
         border-bottom: var(--line); 
@@ -846,6 +869,10 @@
 
         @media only screen and (min-width: base.$bp-small) and (max-width: base.$bp-medium) {
             font-size: 1.2rem;  
+        }
+
+        @media only screen and (max-width: base.$bp-smallest) {
+            font-size: 1.1rem; 
         }
 
         &-option {
