@@ -1281,10 +1281,11 @@
 
     font-size: 3.5rem;
     text-align: center;
+    text-wrap: pretty;
     color: inherit;
 
     @media only screen and (max-width: base.$bp-smallest) {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
     }
 }
 

@@ -1360,11 +1360,12 @@ body {
   height: 100%;
   font-size: 3.5rem;
   text-align: center;
+  text-wrap: pretty;
   color: inherit;
 }
 @media only screen and (max-width: 510px) {
   .no-orders-message {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
   }
 }
 
