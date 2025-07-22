@@ -1232,6 +1232,22 @@
 
     transition: all 0.1 ease;
     animation: popInTop 1.5s ease-out 0.2s;
+
+    p {
+        display: inline flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+
+        font-size: 3.5rem;
+        text-align: center;
+        text-wrap: pretty;
+        color: inherit;
+
+        @media only screen and (max-width: base.$bp-small) {
+            font-size: 1.6rem;
+        }
+    }
 }
 
 .past-orders {
@@ -1270,22 +1286,6 @@
 .small-title {
     @media only screen and (max-width: base.$bp-smallest) {
         font-size: 2rem !important;
-    }
-}
-
-.no-orders-message {
-    display: inline flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-
-    font-size: 3.5rem;
-    text-align: center !important;
-    text-wrap: pretty;
-    color: inherit;
-
-    @media only screen and (max-width: base.$bp-small) {
-        font-size: 1.6rem;
     }
 }
 
