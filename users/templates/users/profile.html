@@ -57,7 +57,7 @@
                 {% endfor %}
             </div>
             {% else %}
-            <p>You have no past orders.</p>
+            <div class="no-orders-message">You have no past orders.</div>
             {% endif %}
         </div>
 
@@ -68,7 +68,7 @@
                 <canvas id="macroChart"></canvas>
             </div>
             {% else %}
-            <p>Nothing to show via chart.</p>
+            <div class="no-orders-message">Nothing to show via chart.</div>
             {% endif %}
         </div>
     </div>
