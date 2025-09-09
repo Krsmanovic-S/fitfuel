@@ -241,9 +241,9 @@
     transition: all 0.1s ease; 
 
     @media only screen and (max-width: base.$bp-smallest) {
-        padding: 1.6rem; 
-        width: 1.4rem;
-        height: 1.4rem; 
+        padding: 1.8rem; 
+        width: 1.6rem;
+        height: 1.6rem; 
     }
 
     &:hover {
@@ -817,13 +817,13 @@
         height: 10%;
         padding: 1rem; 
 
+        font-style: italic;
+        border-bottom: var(--line);
+
         @media only screen and (max-width: base.$bp-smallest) {
             justify-content: space-between;
             padding: 0 .5rem;
         }
-
-        font-style: italic;
-        border-bottom: var(--line); 
 
         &-carbs {
             border: 2px solid var(--color-macro-carbs);
