@@ -185,6 +185,11 @@
     }
 
     @media only screen and (max-width: base.$bp-large) {
+        font-size: 1.8rem;
+        width: 16rem;
+    }
+
+    @media only screen and (max-width: base.$bp-medium) {
         font-size: 1.6rem;
         width: 14rem;
     }
